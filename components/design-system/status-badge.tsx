@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
  * and label. Tones map to the DriveCore functional color system.
  */
 const statusBadgeVariants = cva(
-  'inline-flex h-5.5 w-fit items-center gap-1.5 rounded-full border px-2 text-[10.5px] font-semibold tracking-wide uppercase whitespace-nowrap shadow-[0_1px_1px_rgba(0,0,0,0.01)] transition-colors',
+  'inline-flex h-5.5 w-fit items-center gap-1.5 rounded-xl border px-2 text-[10.5px] font-semibold tracking-wide uppercase whitespace-nowrap shadow-[0_1px_1px_rgba(0,0,0,0.01)] transition-colors',
   {
     variants: {
       tone: {
@@ -30,7 +30,7 @@ const dotVariants = cva('size-1.5 shrink-0 rounded-full shadow-[0_0_4px_currentC
   variants: {
     tone: {
       neutral: 'bg-muted-foreground/80',
-      info: 'bg-info animate-pulse',
+      info: 'bg-info',
       success: 'bg-success',
       warning: 'bg-warning',
       danger: 'bg-destructive',
@@ -58,9 +58,17 @@ function StatusBadge({
   children,
   ...props
 }: StatusBadgeProps) {
+  const childrenString = React.Children.toArray(children).join('')
+  const shouldPulse = ['On Trip', 'Active', 'Dispatched'].includes(childrenString)
+
   return (
     <span className={cn(statusBadgeVariants({ tone }), className)} {...props}>
-      {!hideDot && <span className={dotVariants({ tone })} aria-hidden />}
+      {!hideDot && (
+        <span 
+          className={cn(dotVariants({ tone }), shouldPulse && "animate-status-pulse")} 
+          aria-hidden 
+        />
+      )}
       {children}
     </span>
   )

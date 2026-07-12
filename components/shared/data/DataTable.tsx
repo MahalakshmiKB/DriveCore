@@ -74,7 +74,7 @@ export function DataTable<T>({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="overflow-hidden rounded-2xl border border-border/40 bg-card shadow-[0_1px_3px_rgba(0,0,0,0.01),0_8px_16px_-4px_rgba(0,0,0,0.02)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15),0_10px_20px_-8px_rgba(0,0,0,0.3)]">
+      <div className="overflow-hidden rounded-[20px] border border-border/45 bg-card shadow-premium-sm">
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/15 hover:bg-muted/15">

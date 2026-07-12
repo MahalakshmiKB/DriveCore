@@ -62,7 +62,7 @@ export function LoginPage() {
       
       <div className="relative w-full max-w-md space-y-6 z-10">
         <div className="flex flex-col items-center gap-2.5 text-center">
-          <div className="flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[0_4px_12px_rgba(0,0,0,0.1),inset_0_1.5px_0_rgba(255,255,255,0.25)]">
+          <div className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-premium-sm">
             <TruckIcon className="size-6" />
           </div>
           <h1 className="text-2xl font-extrabold tracking-tight text-foreground">{APP_NAME}</h1>
@@ -70,7 +70,7 @@ export function LoginPage() {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <Card className="border border-border/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_12px_40px_rgb(0,0,0,0.3)] bg-card/75 backdrop-blur-md rounded-3xl p-2">
+          <Card className="border border-border/45 bg-card/85 backdrop-blur-md rounded-[20px] shadow-premium-md p-2">
             <CardHeader className="space-y-1.5 pb-4">
               <CardTitle className="text-xl font-bold">Sign In</CardTitle>
               <CardDescription className="text-xs text-muted-foreground/80">

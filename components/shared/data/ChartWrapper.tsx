@@ -57,7 +57,7 @@ export function TripsBarChart({ data, config }: TripsBarChartProps) {
   return (
     <ChartContainer config={config} className="h-56 w-full">
       <BarChart data={data} accessibilityLayer>
-        <CartesianGrid vertical={false} />
+        <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-muted/40" />
         <XAxis
           dataKey="month"
           tickLine={false}
@@ -66,8 +66,8 @@ export function TripsBarChart({ data, config }: TripsBarChartProps) {
         />
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="completed" fill="var(--color-completed)" radius={4} />
-        <Bar dataKey="cancelled" fill="var(--color-cancelled)" radius={4} />
+        <Bar dataKey="completed" fill="var(--color-completed)" radius={[6, 6, 0, 0]} />
+        <Bar dataKey="cancelled" fill="var(--color-cancelled)" radius={[6, 6, 0, 0]} />
       </BarChart>
     </ChartContainer>
   )
@@ -83,7 +83,17 @@ export function CostAreaChart({ data, config }: CostAreaChartProps) {
   return (
     <ChartContainer config={config} className="h-56 w-full">
       <AreaChart data={data} accessibilityLayer>
-        <CartesianGrid vertical={false} />
+        <defs>
+          <linearGradient id="colorFuelGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="var(--color-fuel)" stopOpacity={0.3}/>
+            <stop offset="95%" stopColor="var(--color-fuel)" stopOpacity={0.01}/>
+          </linearGradient>
+          <linearGradient id="colorMaintGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="var(--color-maintenance)" stopOpacity={0.3}/>
+            <stop offset="95%" stopColor="var(--color-maintenance)" stopOpacity={0.01}/>
+          </linearGradient>
+        </defs>
+        <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-muted/40" />
         <XAxis
           dataKey="month"
           tickLine={false}
@@ -95,17 +105,17 @@ export function CostAreaChart({ data, config }: CostAreaChartProps) {
         <Area
           dataKey="fuel"
           type="natural"
-          fill="var(--color-fuel)"
-          fillOpacity={0.2}
+          fill="url(#colorFuelGrad)"
           stroke="var(--color-fuel)"
+          strokeWidth={2}
           stackId="a"
         />
         <Area
           dataKey="maintenance"
           type="natural"
-          fill="var(--color-maintenance)"
-          fillOpacity={0.2}
+          fill="url(#colorMaintGrad)"
           stroke="var(--color-maintenance)"
+          strokeWidth={2}
           stackId="a"
         />
       </AreaChart>

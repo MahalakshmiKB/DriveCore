@@ -43,7 +43,7 @@ export function DesignSystemPage() {
       {/* Header and Sub-navigation */}
       <div className="flex flex-col gap-4 border-b border-border pb-5 sticky top-16 bg-background/95 backdrop-blur-md z-20 pt-2">
         <div className="flex flex-col gap-1">
-          <div className="flex w-fit items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground">
+          <div className="flex w-fit items-center gap-2 rounded-full border border-border/45 bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground">
             <span className="size-1.5 rounded-full bg-success" />
             {APP_NAME} &middot; Brand Guidelines
           </div>

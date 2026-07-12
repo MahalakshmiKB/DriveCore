@@ -168,7 +168,7 @@ export function TripsPage() {
             {/* Form Section */}
             <div className="lg:col-span-1">
               <form onSubmit={handleCreateTrip}>
-                <Card className="border border-border">
+                <Card className="border border-border/45 bg-card">
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
                       <RouteIcon className="size-4.5 text-primary" />

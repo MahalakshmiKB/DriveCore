@@ -45,12 +45,12 @@ export function DashboardLayout() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-muted/40 p-2 sm:p-3 lg:p-4 flex gap-4 text-foreground antialiased dark:bg-background/20">
+    <div className="min-h-screen w-full bg-muted/30 p-2 sm:p-3 lg:p-4 flex gap-4 text-foreground antialiased dark:bg-background/10 bg-[radial-gradient(circle_at_top_right,oklch(var(--primary)/0.03),transparent_40%),radial-gradient(circle_at_bottom_left,oklch(var(--primary)/0.015),transparent_40%)]">
       
       {/* Sidebar - Floating Arc style */}
       <aside
         className={cn(
-          'fixed inset-y-4 left-4 z-50 flex w-64 flex-col bg-card/65 backdrop-blur-xl border border-border/40 shadow-xl rounded-2xl transition-all duration-300 lg:translate-x-0',
+          'fixed inset-y-4 left-4 z-50 flex w-64 flex-col bg-card/65 backdrop-blur-xl border border-border/40 shadow-premium-sm rounded-[20px] transition-all duration-300 lg:translate-x-0',
           mobileOpen ? 'translate-x-0' : '-translate-x-[110%] lg:translate-x-0',
         )}
       >
@@ -94,8 +94,8 @@ export function DashboardLayout() {
                     className={cn(
                       'flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer active:scale-[0.98]',
                       isActive
-                        ? 'bg-primary text-primary-foreground shadow-[0_2px_8px_-2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.1)]'
-                        : 'text-muted-foreground hover:bg-muted/65 hover:text-foreground',
+                        ? 'bg-gradient-to-r from-primary/12 to-primary/4 text-primary border border-primary/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] rounded-xl'
+                        : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground',
                     )}
                   >
                     <Icon className="size-4 shrink-0" />
@@ -156,10 +156,10 @@ export function DashboardLayout() {
       )}
 
       {/* Main Container - Padded Arc Floating Panel */}
-      <div className="flex-1 min-h-[calc(100vh-2rem)] md:min-h-[calc(100vh-1.5rem)] min-h-[calc(100vh-1rem)] flex flex-col bg-background border border-border/40 rounded-2xl shadow-xl dark:bg-card lg:ml-72">
+      <div className="flex-1 min-h-[calc(100vh-2rem)] md:min-h-[calc(100vh-1.5rem)] min-h-[calc(100vh-1rem)] flex flex-col bg-background border border-border/45 rounded-[20px] shadow-premium-sm dark:bg-card lg:ml-72">
         
         {/* Header - Glassmorphic Navbar */}
-        <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-border/30 bg-background/60 backdrop-blur-md px-6 rounded-t-2xl dark:bg-card/50">
+        <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-black/5 dark:border-white/10 bg-background/70 backdrop-blur-md px-6 rounded-t-[20px] dark:bg-card/50">
           <div className="flex items-center gap-3">
             <Button
               variant="outline"
