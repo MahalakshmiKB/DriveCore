@@ -8,6 +8,8 @@ import { mountSwagger } from './config/swagger';
 import { notFoundHandler, errorHandler } from './middlewares/errorHandler';
 import authRoutes from './modules/auth/auth.routes';
 import vehicleRoutes from './modules/vehicles/vehicles.routes';
+import driverRoutes from './modules/drivers/drivers.routes';
+import tripRoutes from './modules/trips/trips.routes';
 
 export function createApp(): Express {
   const app = express();
@@ -46,9 +48,10 @@ export function createApp(): Express {
   const api = express.Router();
   api.use('/auth', authRoutes);
   api.use('/vehicles', vehicleRoutes);
+  api.use('/drivers', driverRoutes);
+  api.use('/trips', tripRoutes);
   // Future modules mount here, e.g.:
-  // api.use('/drivers', driverRoutes);
-  // api.use('/trips', tripRoutes);
+  // api.use('/maintenance', maintenanceRoutes);
 
   app.use(env.API_PREFIX, api);
 
