@@ -76,36 +76,38 @@ export function ReportsPage() {
     {
       header: 'Report Title',
       cell: (row) => (
-        <span className="flex items-center gap-2 font-semibold text-foreground">
-          <FileTextIcon className="size-4.5 text-primary/80" />
-          {row.title}
-        </span>
+        <div className="flex items-center gap-2 font-semibold text-foreground whitespace-normal break-words min-w-0">
+          <FileTextIcon className="size-4.5 text-primary/80 shrink-0" />
+          <span className="leading-snug">{row.title}</span>
+        </div>
       ),
+      truncate: false,
+      className: 'w-[30%] text-left',
     },
     {
       header: 'Format',
       accessorKey: 'format',
-      className: 'font-mono text-xs text-muted-foreground',
+      className: 'w-[10%] font-mono text-xs text-muted-foreground text-left',
     },
     {
       header: 'File Size',
       accessorKey: 'size',
-      className: 'text-muted-foreground tabular-nums',
+      className: 'w-[12%] text-muted-foreground tabular-nums text-left',
     },
     {
       header: 'Frequency',
       accessorKey: 'frequency',
-      className: 'text-muted-foreground',
+      className: 'w-[14%] text-muted-foreground text-left',
     },
     {
       header: 'Last Generated',
       accessorKey: 'lastGenerated',
-      className: 'text-muted-foreground tabular-nums',
+      className: 'w-[14%] text-muted-foreground tabular-nums text-left',
     },
     {
       header: 'Created By',
       accessorKey: 'createdBy',
-      className: 'text-muted-foreground',
+      className: 'w-[12%] text-muted-foreground text-left',
     },
     {
       header: 'Actions',
@@ -115,7 +117,8 @@ export function ReportsPage() {
           Export
         </Button>
       ),
-      className: 'text-right w-24',
+      truncate: false,
+      className: 'w-[8%] text-right',
     },
   ]
 

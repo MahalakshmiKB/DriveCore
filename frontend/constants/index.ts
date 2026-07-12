@@ -3,14 +3,9 @@ import {
   TruckIcon, 
   UsersIcon, 
   RouteIcon, 
-  LayersIcon, 
-  MousePointerClickIcon, 
-  TextCursorInputIcon, 
-  BellRingIcon, 
   BarChart3Icon,
   WrenchIcon,
   FuelIcon,
-  DollarSignIcon,
   SettingsIcon,
   Wallet as CoinsIcon
 } from 'lucide-react'
@@ -28,8 +23,8 @@ export const STORAGE_KEYS = {
 export const VEHICLE_STATUS_TONE: Record<string, StatusTone> = {
   Available: 'success',
   'On Trip': 'info',
-  'In Shop': 'warning',
-  Retired: 'neutral',
+  Maintenance: 'warning',
+  Outage: 'danger',
 }
 
 export const DRIVER_STATUS_TONE: Record<string, StatusTone> = {
@@ -57,15 +52,4 @@ export const NAV_ITEMS = [
   { path: '/expenses', label: 'Expenses', icon: CoinsIcon },
   { path: '/reports', label: 'Reports', icon: BarChart3Icon },
   { path: '/settings', label: 'Settings', icon: SettingsIcon },
-  { path: '/design-system', label: 'Design System', icon: LayersIcon },
-]
-
-
-export const DESIGN_SYSTEM_NAV_ITEMS = [
-  { id: 'foundations', label: 'Foundations', icon: LayersIcon },
-  { id: 'buttons', label: 'Buttons', icon: MousePointerClickIcon },
-  { id: 'forms', label: 'Forms & Inputs', icon: TextCursorInputIcon },
-  { id: 'data-display', label: 'Data Display', icon: LayoutGridIcon },
-  { id: 'feedback', label: 'Feedback & Nav', icon: BellRingIcon },
-  { id: 'charts', label: 'Charts', icon: BarChart3Icon },
 ]

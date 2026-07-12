@@ -14,7 +14,6 @@ import { MaintenancePage } from '@/features/maintenance/pages/MaintenancePage'
 import { FuelPage } from '@/features/fuel/pages/FuelPage'
 import { ExpensesPage } from '@/features/expenses/pages/ExpensesPage'
 import { ReportsPage } from '@/features/reports/pages/ReportsPage'
-import { DesignSystemPage } from '@/features/design-system/pages/DesignSystemPage'
 import { AiDispatchPage } from '@/features/trips/pages/AiDispatchPage'
 import { SettingsPage } from '@/features/settings/pages/SettingsPage'
 import { useAuth } from '@/hooks/useAuth'
@@ -88,7 +87,6 @@ export function ClientRouter() {
             <Route path="reports" element={<ReportsPage />} />
             <Route path="ai-dispatch" element={<AiDispatchPage />} />
             <Route path="settings" element={<SettingsPage />} />
-            <Route path="design-system" element={<DesignSystemPage />} />
 
             {/* Driver routes */}
             <Route path="driver-dashboard" element={<DriverDashboard />} />
