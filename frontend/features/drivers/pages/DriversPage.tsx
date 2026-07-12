@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { SearchIcon, StarIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -14,11 +14,11 @@ import { LoadingBoundary } from '@/components/shared/feedback/LoadingBoundary'
 import { ErrorBoundary } from '@/components/shared/feedback/ErrorBoundary'
 
 export function DriversPage() {
-  const [drivers, setDrivers] = React.useState<Driver[]>([])
-  const [loading, setLoading] = React.useState(true)
-  const [search, setSearch] = React.useState('')
+  const [drivers, setDrivers] = useState<Driver[]>([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchDrivers() {
       try {
         const list = await driverService.getDrivers()
@@ -32,7 +32,7 @@ export function DriversPage() {
     fetchDrivers()
   }, [])
 
-  const filteredDrivers = React.useMemo(() => {
+  const filteredDrivers = useMemo(() => {
     return drivers.filter(
       (d) =>
         d.name.toLowerCase().includes(search.toLowerCase()) ||

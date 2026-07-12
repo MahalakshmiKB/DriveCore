@@ -1,6 +1,6 @@
-'use client'
-
-import * as React from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import { useAuth } from '@/hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 import { TruckIcon, UsersIcon, RouteIcon, FuelIcon } from 'lucide-react'
 import { KpiCard } from '@/components/design-system/kpi-card'
 import { ChartCard, TripsBarChart, CostAreaChart, StatusPieChart } from '@/components/shared/data/ChartWrapper'
@@ -41,12 +41,24 @@ const costConfig = {
 } satisfies ChartConfig
 
 export function DashboardPage() {
-  const [vehicles, setVehicles] = React.useState<Vehicle[]>([])
-  const [drivers, setDrivers] = React.useState<Driver[]>([])
-  const [trips, setTrips] = React.useState<Trip[]>([])
-  const [loading, setLoading] = React.useState(true)
+  const { user } = useAuth()
+  const navigate = useNavigate()
+  const [vehicles, setVehicles] = useState<Vehicle[]>([])
+  const [drivers, setDrivers] = useState<Driver[]>([])
+  const [trips, setTrips] = useState<Trip[]>([])
+  const [loading, setLoading] = useState(true)
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (user?.role === 'Driver') {
+      navigate('/driver-dashboard', { replace: true })
+    } else if (user?.role === 'Safety Officer') {
+      navigate('/safety-dashboard', { replace: true })
+    } else if (user?.role === 'Financial Analyst') {
+      navigate('/finance-dashboard', { replace: true })
+    }
+  }, [user, navigate])
+
+  useEffect(() => {
     async function fetchData() {
       try {
         const [vList, dList, tList] = await Promise.all([
@@ -72,7 +84,7 @@ export function DashboardPage() {
   const tripsInProgress = trips.filter((t) => t.status === 'Dispatched').length
 
   // Pie chart status data
-  const statusCounts = React.useMemo(() => {
+  const statusCounts = useMemo(() => {
     const counts = { Available: 0, 'On Trip': 0, 'In Shop': 0, Retired: 0 }
     vehicles.forEach((v) => {
       if (v.status in counts) {
@@ -131,7 +143,7 @@ export function DashboardPage() {
             />
             <KpiCard
               label="Fuel cost (MTD)"
-              value="$92.4k"
+              value="₹92.4k"
               icon={FuelIcon}
               delta="+6.7%"
               trend="up"
@@ -144,7 +156,7 @@ export function DashboardPage() {
               <TripsBarChart data={tripsData} config={tripsConfig} />
             </ChartCard>
 
-            <ChartCard title="Cost trend" description="Fuel & maintenance ($k)">
+            <ChartCard title="Cost trend" description="Fuel & maintenance (₹k)">
               <CostAreaChart data={costData} config={costConfig} />
             </ChartCard>
 

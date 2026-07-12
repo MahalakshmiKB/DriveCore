@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState } from 'react'
 import {
   FuelIcon,
   RouteIcon,
@@ -62,7 +62,7 @@ const fleetRows = [
 ] as const
 
 function FilterChips() {
-  const [chips, setChips] = React.useState([
+  const [chips, setChips] = useState([
     'Status: Available',
     'Region: West',
     'Capacity > 5,000 kg',

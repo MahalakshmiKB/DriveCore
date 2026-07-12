@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   BarChart3Icon,
   BellIcon,
@@ -39,11 +39,11 @@ const navItems: ShellNavItem[] = [
 ]
 
 export function ShowcaseShell({ children }: { children: React.ReactNode }) {
-  const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [active, setActive] = React.useState(navItems[0]?.id)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [active, setActive] = useState(navItems[0]?.id)
 
   // Scroll-spy to highlight the active section in the sidebar.
-  React.useEffect(() => {
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

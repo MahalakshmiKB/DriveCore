@@ -10,10 +10,7 @@ export function formatOdometer(km: number): string {
 }
 
 export function formatCurrency(value: number): string {
-  if (value >= 1000) {
-    return `$${(value / 1000).toFixed(1)}k`
-  }
-  return `$${value}`
+  return `₹${new Intl.NumberFormat('en-IN').format(value)}`
 }
 
 export function getInitials(name: string): string {

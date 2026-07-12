@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import { FoundationsSection } from '@/components/showcase/sections/foundations'
 import { ButtonsSection } from '@/components/showcase/sections/buttons'
 import { FormsSection } from '@/components/showcase/sections/forms'
@@ -11,10 +11,10 @@ import { DESIGN_SYSTEM_NAV_ITEMS, APP_NAME } from '@/constants'
 import { cn } from '@/utils'
 
 export function DesignSystemPage() {
-  const [active, setActive] = React.useState(DESIGN_SYSTEM_NAV_ITEMS[0]?.id)
+  const [active, setActive] = useState(DESIGN_SYSTEM_NAV_ITEMS[0]?.id)
 
   // Scroll-spy to highlight active sub-section in page navigation
-  React.useEffect(() => {
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

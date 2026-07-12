@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { User } from '@/types'
 import { authService } from '@/services/authService'
 
@@ -17,11 +17,11 @@ export interface AuthContextType {
 export const AuthContext = React.createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<User | null>(null)
-  const [loading, setLoading] = React.useState(true)
-  const [error, setError] = React.useState<string | null>(null)
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function initAuth() {
       try {
         const currentUser = await authService.getCurrentUser()
@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initAuth()
   }, [])
 
-  const login = React.useCallback(async (username: string, password: string) => {
+  const login = useCallback(async (username: string, password: string) => {
     setLoading(true)
     setError(null)
     try {
@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  const logout = React.useCallback(async () => {
+  const logout = useCallback(async () => {
     setLoading(true)
     try {
       await authService.logout()
@@ -61,11 +61,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  const clearError = React.useCallback(() => {
+  const clearError = useCallback(() => {
     setError(null)
   }, [])
 
-  const value = React.useMemo(
+  const value = useMemo(
     () => ({
       user,
       isAuthenticated: !!user,
