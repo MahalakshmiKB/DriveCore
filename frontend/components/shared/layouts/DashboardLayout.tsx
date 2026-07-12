@@ -20,6 +20,10 @@ import {
   SlidersIcon,
   FileTextIcon,
   LayersIcon,
+  LayoutGrid as LayoutGridIcon,
+  User as UserIcon,
+  History as HistoryIcon,
+  Route as RouteIcon,
 } from 'lucide-react'
 
 import { cn } from '@/utils'
@@ -31,10 +35,19 @@ import { useAuth } from '@/hooks/useAuth'
 import { NAV_ITEMS, APP_NAME, APP_SUBTITLE } from '@/constants'
 import { toast } from 'sonner'
 
+const DRIVER_NAV_ITEMS = [
+  { path: '/driver-dashboard', label: 'Dashboard', icon: LayoutGridIcon },
+  { path: '/driver-my-trips', label: 'My Trips', icon: RouteIcon },
+  { path: '/driver-vehicle', label: 'Assigned Vehicle', icon: TruckIcon },
+  { path: '/driver-history', label: 'Trip History', icon: HistoryIcon },
+  { path: '/driver-profile', label: 'Profile', icon: UserIcon },
+]
+
 export function DashboardLayout() {
   const { user, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
+  const navItems = user?.role === 'Driver' ? DRIVER_NAV_ITEMS : NAV_ITEMS
   const [mobileOpen, setMobileOpen] = useState(false)
   const [notificationsOpen, setNotificationsOpen] = useState(false)
 
@@ -81,7 +94,7 @@ export function DashboardLayout() {
             Operations Menu
           </p>
           <ul className="flex flex-col gap-1">
-            {NAV_ITEMS.map((item) => {
+            {navItems.map((item) => {
               const { path, label, icon: Icon } = item
               const isActive = location.pathname === path || (path !== '/' && location.pathname.startsWith(path))
 
@@ -121,15 +134,17 @@ export function DashboardLayout() {
               </span>
             </div>
             <div className="flex gap-0.5">
-              <Button
-                variant="ghost"
-                size="icon-xs"
-                onClick={() => navigate('/settings')}
-                className="hover:bg-muted/70 text-muted-foreground hover:text-foreground"
-                title="Settings"
-              >
-                <SettingsIcon className="size-3.5" />
-              </Button>
+              {user?.role !== 'Driver' && (
+                <Button
+                  variant="ghost"
+                  size="icon-xs"
+                  onClick={() => navigate('/settings')}
+                  className="hover:bg-muted/70 text-muted-foreground hover:text-foreground"
+                  title="Settings"
+                >
+                  <SettingsIcon className="size-3.5" />
+                </Button>
+              )}
               <Button
                 variant="ghost"
                 size="icon-xs"

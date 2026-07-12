@@ -17,6 +17,13 @@ import { ReportsPage } from '@/features/reports/pages/ReportsPage'
 import { DesignSystemPage } from '@/features/design-system/pages/DesignSystemPage'
 import { AiDispatchPage } from '@/features/trips/pages/AiDispatchPage'
 import { SettingsPage } from '@/features/settings/pages/SettingsPage'
+import { useAuth } from '@/hooks/useAuth'
+import { AccessDeniedPage } from '@/components/shared/layouts/AccessDeniedPage'
+import { DriverDashboard } from '@/features/drivers/pages/DriverDashboard'
+import { DriverMyTrips } from '@/features/drivers/pages/DriverMyTrips'
+import { DriverVehicle } from '@/features/drivers/pages/DriverVehicle'
+import { DriverHistory } from '@/features/drivers/pages/DriverHistory'
+import { DriverProfile } from '@/features/drivers/pages/DriverProfile'
 
 export function ClientRouter() {
   const [mounted, setMounted] = useState(false)
@@ -50,7 +57,7 @@ export function ClientRouter() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route index element={<IndexRedirect />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="vehicles" element={<VehiclesPage />} />
             <Route path="drivers" element={<DriversPage />} />
@@ -64,9 +71,16 @@ export function ClientRouter() {
             <Route path="design-system" element={<DesignSystemPage />} />
             
             {/* Placeholder dashboards for non-admin roles */}
-            <Route path="driver-dashboard" element={<PlaceholderDashboard title="Driver Dashboard" />} />
+            <Route path="driver-dashboard" element={<DriverDashboard />} />
+            <Route path="driver-my-trips" element={<DriverMyTrips />} />
+            <Route path="driver-vehicle" element={<DriverVehicle />} />
+            <Route path="driver-history" element={<DriverHistory />} />
+            <Route path="driver-profile" element={<DriverProfile />} />
             <Route path="safety-dashboard" element={<PlaceholderDashboard title="Safety Dashboard" />} />
             <Route path="finance-dashboard" element={<PlaceholderDashboard title="Finance Dashboard" />} />
+            
+            {/* Access Denied Route */}
+            <Route path="access-denied" element={<AccessDeniedPage />} />
           </Route>
 
           {/* Catch-all fallback */}
@@ -93,4 +107,12 @@ function PlaceholderDashboard({ title }: { title: string }) {
       </div>
     </div>
   )
+}
+
+function IndexRedirect() {
+  const { user } = useAuth()
+  if (user?.role === 'Driver') {
+    return <Navigate to="/driver-dashboard" replace />
+  }
+  return <Navigate to="/dashboard" replace />
 }
