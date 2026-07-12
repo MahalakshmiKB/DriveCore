@@ -97,14 +97,14 @@ export function DashboardPage() {
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">Operations Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Operations Dashboard</h1>
           <p className="text-sm text-muted-foreground">Real-time status updates and operational metrics across the fleet.</p>
         </div>
 
         <LoadingBoundary isLoading={loading} variant="card">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <KpiCard
               label="Active vehicles"
               value={String(activeVehicles || 248)}
@@ -139,7 +139,7 @@ export function DashboardPage() {
             />
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-2">
             <ChartCard title="Trips per month" description="Completed vs cancelled">
               <TripsBarChart data={tripsData} config={tripsConfig} />
             </ChartCard>

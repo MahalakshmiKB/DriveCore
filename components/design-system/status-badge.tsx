@@ -8,16 +8,16 @@ import { cn } from '@/lib/utils'
  * and label. Tones map to the DriveCore functional color system.
  */
 const statusBadgeVariants = cva(
-  'inline-flex h-6 w-fit items-center gap-1.5 rounded-full border px-2.5 text-xs font-medium whitespace-nowrap',
+  'inline-flex h-5.5 w-fit items-center gap-1.5 rounded-full border px-2 text-[10.5px] font-semibold tracking-wide uppercase whitespace-nowrap shadow-[0_1px_1px_rgba(0,0,0,0.01)] transition-colors',
   {
     variants: {
       tone: {
-        neutral: 'border-border bg-muted text-muted-foreground',
-        info: 'border-info/20 bg-info-muted text-info',
-        success: 'border-success/20 bg-success-muted text-success',
-        warning: 'border-warning/25 bg-warning-muted text-warning-foreground',
-        danger: 'border-destructive/20 bg-destructive/10 text-destructive',
-        brand: 'border-primary/20 bg-primary/10 text-primary',
+        neutral: 'border-border bg-muted/60 text-muted-foreground dark:bg-muted/30',
+        info: 'border-info/20 bg-info-muted/40 text-info dark:bg-info-muted/15',
+        success: 'border-success/25 bg-success-muted/45 text-success dark:bg-success-muted/20',
+        warning: 'border-warning/30 bg-warning-muted/45 text-warning-foreground dark:bg-warning-muted/20',
+        danger: 'border-destructive/20 bg-destructive/10 text-destructive dark:bg-destructive/15',
+        brand: 'border-primary/20 bg-primary/10 text-primary dark:bg-primary/15',
       },
     },
     defaultVariants: {
@@ -26,11 +26,11 @@ const statusBadgeVariants = cva(
   },
 )
 
-const dotVariants = cva('size-1.5 shrink-0 rounded-full', {
+const dotVariants = cva('size-1.5 shrink-0 rounded-full shadow-[0_0_4px_currentColor]', {
   variants: {
     tone: {
-      neutral: 'bg-muted-foreground',
-      info: 'bg-info',
+      neutral: 'bg-muted-foreground/80',
+      info: 'bg-info animate-pulse',
       success: 'bg-success',
       warning: 'bg-warning',
       danger: 'bg-destructive',
