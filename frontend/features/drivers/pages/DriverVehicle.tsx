@@ -81,50 +81,50 @@ export function DriverVehicle() {
               <StatusBadge tone="success">{vehicle.status}</StatusBadge>
             </CardHeader>
             <CardContent className="pt-2">
-              <div className="grid gap-4 sm:grid-cols-2 text-xs border border-border/20 p-4 rounded-xl bg-muted/20">
+              <div className="grid gap-4 sm:grid-cols-2 text-xs border border-border/20 p-4 rounded-xl bg-muted/40 dark:bg-muted/10">
                 <div>
-                  <span className="text-slate-400 block text-[9px] font-bold uppercase tracking-wider font-sans">Registration Code</span>
-                  <span className="font-bold text-white text-sm">{vehicle.plate}</span>
+                  <span className="text-muted-foreground block text-[9px] font-bold uppercase tracking-wider font-sans">Registration Code</span>
+                  <span className="font-bold text-foreground text-sm">{vehicle.plate}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[9px] font-bold uppercase tracking-wider font-sans">Vehicle Model</span>
-                  <span className="font-semibold text-white">{vehicle.model}</span>
+                  <span className="text-muted-foreground block text-[9px] font-bold uppercase tracking-wider font-sans">Vehicle Model</span>
+                  <span className="font-semibold text-foreground">{vehicle.model}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[9px] font-bold uppercase tracking-wider font-sans">Max Gross Capacity</span>
-                  <span className="font-semibold text-white">{vehicle.capacity}</span>
+                  <span className="text-muted-foreground block text-[9px] font-bold uppercase tracking-wider font-sans">Max Gross Capacity</span>
+                  <span className="font-semibold text-foreground">{vehicle.capacity}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[9px] font-bold uppercase tracking-wider font-sans">Odometer Count</span>
-                  <span className="font-semibold text-white flex items-center gap-1">
+                  <span className="text-muted-foreground block text-[9px] font-bold uppercase tracking-wider font-sans">Odometer Count</span>
+                  <span className="font-semibold text-foreground flex items-center gap-1">
                     <GaugeIcon className="size-3.5 text-primary" />
                     {vehicle.odometer}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[9px] font-bold uppercase tracking-wider font-sans">Last Service Date</span>
-                  <span className="font-semibold text-white flex items-center gap-1">
+                  <span className="text-muted-foreground block text-[9px] font-bold uppercase tracking-wider font-sans">Last Service Date</span>
+                  <span className="font-semibold text-foreground flex items-center gap-1">
                     <WrenchIcon className="size-3.5 text-primary" />
                     {vehicle.lastService}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[9px] font-bold uppercase tracking-wider font-sans">Insurance Expiry</span>
-                  <span className="font-semibold text-white flex items-center gap-1">
+                  <span className="text-muted-foreground block text-[9px] font-bold uppercase tracking-wider font-sans">Insurance Expiry</span>
+                  <span className="font-semibold text-foreground flex items-center gap-1">
                     <CalendarIcon className="size-3.5 text-primary" />
                     {vehicle.insuranceExpiry}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[9px] font-bold uppercase tracking-wider font-sans">Fitness Certification</span>
-                  <span className="font-semibold text-white flex items-center gap-1">
+                  <span className="text-muted-foreground block text-[9px] font-bold uppercase tracking-wider font-sans">Fitness Certification</span>
+                  <span className="font-semibold text-foreground flex items-center gap-1">
                     <CheckCircle2Icon className="size-3.5 text-success" />
                     {vehicle.fitnessCert}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[9px] font-bold uppercase tracking-wider font-sans">Current Fuel Tank Level</span>
-                  <span className="font-semibold text-white flex items-center gap-1">
+                  <span className="text-muted-foreground block text-[9px] font-bold uppercase tracking-wider font-sans">Current Fuel Tank Level</span>
+                  <span className="font-semibold text-foreground flex items-center gap-1">
                     <FuelIcon className="size-3.5 text-primary" />
                     {vehicle.fuelLevel}
                   </span>
@@ -161,15 +161,15 @@ export function DriverVehicle() {
                 {checklist.map((item) => (
                   <label 
                     key={item.id}
-                    className="flex items-start gap-3 p-3.5 rounded-xl border border-white/5 bg-slate-950/20 hover:bg-slate-950/40 transition-colors cursor-pointer text-xs"
+                    className="flex items-start gap-3 p-3.5 rounded-xl border border-border/40 bg-muted/40 dark:bg-slate-950/20 hover:bg-muted/60 dark:hover:bg-slate-950/40 transition-colors cursor-pointer text-xs"
                   >
                     <input 
-                      type="checkbox"
-                      checked={item.checked}
-                      onChange={() => toggleCheck(item.id)}
-                      className="rounded border-white/10 bg-slate-950 accent-primary size-4.5 shrink-0 mt-0.5"
+                       type="checkbox"
+                       checked={item.checked}
+                       onChange={() => toggleCheck(item.id)}
+                       className="rounded border-slate-300 dark:border-white/10 bg-white dark:bg-slate-950 accent-primary size-4.5 shrink-0 mt-0.5"
                     />
-                    <span className={`leading-normal ${item.checked ? 'text-slate-300 line-through' : 'text-slate-200'}`}>
+                    <span className={`leading-normal ${item.checked ? 'text-muted-foreground line-through' : 'text-foreground font-medium'}`}>
                       {item.label}
                     </span>
                   </label>

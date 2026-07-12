@@ -9,23 +9,56 @@ interface ProtectedRouteProps {
   children: React.ReactNode
 }
 
+// Paths that only Fleet Manager can access
+const ADMIN_ONLY_PATHS = [
+  '/dashboard',
+  '/vehicles',
+  '/drivers',
+  '/trips',
+  '/ai-dispatch',
+  '/maintenance',
+  '/fuel',
+  '/expenses',
+  '/reports',
+  '/settings',
+  '/design-system',
+]
+
+// Paths a Safety Officer cannot access
+const SAFETY_BLOCKED_PATHS = [
+  '/dashboard',
+  '/vehicles',
+  '/trips',
+  '/ai-dispatch',
+  '/fuel',
+  '/expenses',
+  '/settings',
+]
+
+// Paths a Financial Analyst cannot access
+const FINANCE_BLOCKED_PATHS = [
+  '/dashboard',
+  '/vehicles',
+  '/drivers',
+  '/trips',
+  '/ai-dispatch',
+  '/maintenance',
+  '/settings',
+  '/safety-dashboard',
+  '/safety-drivers',
+  '/safety-licenses',
+  '/safety-incidents',
+  '/safety-reports',
+  '/safety-profile',
+]
+
+function isBlocked(path: string, blockedPaths: string[]): boolean {
+  return blockedPaths.some(p => path === p || path.startsWith(p + '/'))
+}
+
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { isAuthenticated, loading, user } = useAuth()
   const location = useLocation()
-
-  const ADMIN_PATHS = [
-    '/dashboard',
-    '/vehicles',
-    '/drivers',
-    '/trips',
-    '/ai-dispatch',
-    '/maintenance',
-    '/fuel',
-    '/expenses',
-    '/reports',
-    '/settings',
-    '/design-system'
-  ]
 
   if (loading) {
     return (
@@ -40,13 +73,23 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   }
 
   if (!isAuthenticated) {
-    // Save the location they were trying to access to redirect them back after logging in
     return <Navigate to="/login" state={{ from: location }} replace />
   }
 
-  if (user?.role === 'Driver' && ADMIN_PATHS.some(p => location.pathname === p || location.pathname.startsWith(p + '/'))) {
+  const role = user?.role
+
+  if (role === 'Driver' && isBlocked(location.pathname, ADMIN_ONLY_PATHS)) {
+    return <Navigate to="/access-denied" replace />
+  }
+
+  if (role === 'Safety Officer' && isBlocked(location.pathname, SAFETY_BLOCKED_PATHS)) {
+    return <Navigate to="/access-denied" replace />
+  }
+
+  if (role === 'Financial Analyst' && isBlocked(location.pathname, FINANCE_BLOCKED_PATHS)) {
     return <Navigate to="/access-denied" replace />
   }
 
   return <>{children}</>
 }
+

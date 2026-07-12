@@ -123,12 +123,12 @@ export function DriverProfile() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-xs">
-              <div className="flex items-center justify-between p-2.5 rounded-xl border border-white/5 bg-slate-950/20">
-                <span className="font-semibold text-slate-300">Commercial Driver License (CDL)</span>
+              <div className="flex items-center justify-between p-2.5 rounded-xl border border-border/40 bg-muted/40 dark:bg-slate-950/20">
+                <span className="font-semibold text-foreground">Commercial Driver License (CDL)</span>
                 <StatusBadge tone="success">Verified</StatusBadge>
               </div>
-              <div className="flex items-center justify-between p-2.5 rounded-xl border border-white/5 bg-slate-950/20">
-                <span className="font-semibold text-slate-300">Medical Fitness Certificate</span>
+              <div className="flex items-center justify-between p-2.5 rounded-xl border border-border/40 bg-muted/40 dark:bg-slate-950/20">
+                <span className="font-semibold text-foreground">Medical Fitness Certificate</span>
                 <StatusBadge tone="success">Verified</StatusBadge>
               </div>
             </CardContent>
@@ -226,26 +226,26 @@ export function DriverProfile() {
               <div className="flex items-center justify-between border-b border-border/20 pb-4">
                 <div>
                   <div className="font-bold text-foreground">Dark Display Theme Mode</div>
-                  <div className="text-[10px] text-slate-400 mt-0.5">Use low-contrast dark system backgrounds.</div>
+                  <div className="text-[10px] text-muted-foreground mt-0.5">Use low-contrast dark system backgrounds.</div>
                 </div>
                 <input
                   type="checkbox"
                   checked={darkTheme}
                   onChange={(e) => setDarkTheme(e.target.checked)}
-                  className="rounded border-white/10 bg-slate-950 accent-primary size-4.5"
+                  className="rounded border-slate-300 dark:border-white/10 bg-white dark:bg-slate-950 accent-primary size-4.5"
                 />
               </div>
 
               <div className="flex items-center justify-between border-b border-border/20 pb-4">
                 <div>
                   <div className="font-bold text-foreground">Real-Time Dispatch Push dispatches</div>
-                  <div className="text-[10px] text-slate-400 mt-0.5">Receive audio/popup alerts when new route is assigned.</div>
+                  <div className="text-[10px] text-muted-foreground mt-0.5">Receive audio/popup alerts when new route is assigned.</div>
                 </div>
                 <input
                   type="checkbox"
                   checked={alerts}
                   onChange={(e) => setAlerts(e.target.checked)}
-                  className="rounded border-white/10 bg-slate-950 accent-primary size-4.5"
+                  className="rounded border-slate-300 dark:border-white/10 bg-white dark:bg-slate-950 accent-primary size-4.5"
                 />
               </div>
 

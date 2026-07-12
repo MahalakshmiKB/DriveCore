@@ -1,15 +1,14 @@
 'use client'
 
 import React, { useState, useEffect, useMemo } from 'react'
-import { FuelIcon, SearchIcon, PlusIcon, CompassIcon, InfoIcon, AwardIcon, TrendingUpIcon } from 'lucide-react'
+import { FuelIcon, PlusIcon, CompassIcon, InfoIcon, AwardIcon, TrendingUpIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { KpiCard } from '@/components/design-system/kpi-card'
-import { StatusBadge } from '@/components/design-system/status-badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
 import { DataTable, DataTableColumn } from '@/components/shared/data/DataTable'
+import { PageToolbar, ToolbarSelect, ToolbarSearch } from '@/components/shared/data/PageToolbar'
 import { LoadingBoundary } from '@/components/shared/feedback/LoadingBoundary'
 import { ErrorBoundary } from '@/components/shared/feedback/ErrorBoundary'
 
@@ -141,48 +140,46 @@ export function FuelPage() {
             <KpiCard label="Avg Price/Gal" value={`₹${avgCostPerGallon}`} icon={CompassIcon} delta="-0.04" trend="down" hint="market comparison" />
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
-            
-            {/* Table & search and filters */}
-            <div className="lg:col-span-2 space-y-4">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <div className="flex-1">
-                  <InputGroup>
-                    <InputGroupAddon>
-                      <SearchIcon className="size-4 text-muted-foreground/70" />
-                    </InputGroupAddon>
-                    <InputGroupInput
-                      placeholder="Search fuel logs by plate, driver, station..."
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                    />
-                  </InputGroup>
-                </div>
-                <div className="flex gap-1">
-                  {['All', 'Denver', 'Dallas', 'Barstow', 'Albany'].map((region) => (
-                    <Button
-                      key={region}
-                      variant={regionFilter === region ? 'default' : 'outline'}
-                      size="xs"
-                      onClick={() => setRegionFilter(region)}
-                      className="rounded-lg text-xs"
-                    >
-                      {region}
-                    </Button>
-                  ))}
-                </div>
-              </div>
+          {/* Grid: table (2 cols) + sidebar (1 col) */}
+          <div className="grid gap-4 lg:grid-cols-3 min-w-0">
 
-              <DataTable
-                columns={columns}
-                data={filteredLogs}
-                keyExtractor={(l) => l.id}
-                emptyTitle="No fuel refill transactions found"
-                emptyDescription="Try refining your query search parameters or region filters."
-              />
+            {/* Table area */}
+            <div className="lg:col-span-2 flex flex-col gap-0 min-w-0 border border-border/40 rounded-[20px] bg-card shadow-[0_2px_16px_0_rgba(0,0,0,0.18)] overflow-hidden">
+
+              <PageToolbar title="⛽ Fuel Logs">
+                <ToolbarSelect
+                  value={regionFilter}
+                  onChange={setRegionFilter}
+                  options={['All', 'Denver', 'Dallas', 'Barstow', 'Albany']}
+                />
+                <ToolbarSearch
+                  value={search}
+                  onChange={setSearch}
+                  placeholder="Search by plate, driver, station…"
+                />
+                <Button
+                  size="sm"
+                  className="h-9 px-4 rounded-xl text-xs font-semibold shrink-0"
+                  onClick={handleLogRefill}
+                >
+                  <PlusIcon className="size-3.5 mr-1.5" />
+                  Log Refill
+                </Button>
+              </PageToolbar>
+
+              {/* Table */}
+              <div className="p-4 w-full min-w-0">
+                <DataTable
+                  columns={columns}
+                  data={filteredLogs}
+                  keyExtractor={(l) => l.id}
+                  emptyTitle="No fuel refill transactions found"
+                  emptyDescription="Try refining your search or region filters."
+                />
+              </div>
             </div>
 
-            {/* Statistics Sidebar Cards */}
+            {/* Statistics Sidebar */}
             <div className="space-y-5">
               <Card className="border border-border/40 bg-card">
                 <CardHeader>
@@ -223,7 +220,7 @@ export function FuelPage() {
                 </CardContent>
               </Card>
             </div>
-            
+
           </div>
 
         </LoadingBoundary>

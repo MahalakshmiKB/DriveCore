@@ -8,7 +8,7 @@ import {
   Loader2Icon, 
   ShieldCheckIcon, 
   CompassIcon, 
-  Coins as CoinsIcon, 
+  Wallet as CoinsIcon, 
   UserRoundIcon, 
   XIcon, 
   ArrowRightIcon, 

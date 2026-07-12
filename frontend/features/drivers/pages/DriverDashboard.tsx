@@ -134,31 +134,31 @@ export function DriverDashboard() {
               <StatusBadge tone="info">{activeTrip.status}</StatusBadge>
             </CardHeader>
             <CardContent className="pt-2 flex flex-col gap-4">
-              <div className="flex flex-col sm:flex-row justify-between gap-4 p-4 rounded-xl border border-border/25 bg-muted/20">
+              <div className="flex flex-col sm:flex-row justify-between gap-4 p-4 rounded-xl border border-border/20 bg-muted/40 dark:bg-muted/10">
                 <div className="space-y-3 flex-1">
                   <div className="flex items-start gap-2.5 text-xs">
                     <MapPinIcon className="size-4 text-primary shrink-0 mt-0.5" />
                     <div>
-                      <span className="text-[10px] text-slate-400 block font-bold tracking-wider uppercase font-sans">Source</span>
-                      <span className="font-semibold text-white">{activeTrip.source}</span>
+                      <span className="text-[10px] text-muted-foreground block font-bold tracking-wider uppercase font-sans">Source</span>
+                      <span className="font-semibold text-foreground">{activeTrip.source}</span>
                     </div>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs">
                     <MapPinIcon className="size-4 text-success shrink-0 mt-0.5" />
                     <div>
-                      <span className="text-[10px] text-slate-400 block font-bold tracking-wider uppercase font-sans">Destination</span>
-                      <span className="font-semibold text-white">{activeTrip.destination}</span>
+                      <span className="text-[10px] text-muted-foreground block font-bold tracking-wider uppercase font-sans">Destination</span>
+                      <span className="font-semibold text-foreground">{activeTrip.destination}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="border-t sm:border-t-0 sm:border-l border-border/25 pt-3 sm:pt-0 sm:pl-4 space-y-3 w-44">
+                <div className="border-t sm:border-t-0 sm:border-l border-border/20 pt-3 sm:pt-0 sm:pl-4 space-y-3 w-44">
                   <div>
-                    <span className="text-[10px] text-slate-400 block font-bold tracking-wider uppercase font-sans">Assigned Cargo</span>
-                    <span className="text-xs font-semibold text-white">{activeTrip.cargo}</span>
+                    <span className="text-[10px] text-muted-foreground block font-bold tracking-wider uppercase font-sans">Assigned Cargo</span>
+                    <span className="text-xs font-semibold text-foreground">{activeTrip.cargo}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block font-bold tracking-wider uppercase font-sans">ETA</span>
+                    <span className="text-[10px] text-muted-foreground block font-bold tracking-wider uppercase font-sans">ETA</span>
                     <span className="text-xs font-semibold text-primary">{activeTrip.eta} (Today)</span>
                   </div>
                 </div>
@@ -190,7 +190,7 @@ export function DriverDashboard() {
                       <span>Completed Trips</span>
                       <span className="text-success">8 Trips (80%)</span>
                     </div>
-                    <div className="h-2.5 w-full bg-slate-900 border border-white/5 rounded-full overflow-hidden">
+                    <div className="h-2.5 w-full bg-muted border border-border/40 rounded-full overflow-hidden">
                       <div className="h-full bg-success rounded-full" style={{ width: '80%' }} />
                     </div>
                   </div>
@@ -199,7 +199,7 @@ export function DriverDashboard() {
                       <span>Pending/Active Trips</span>
                       <span className="text-primary">2 Trips (20%)</span>
                     </div>
-                    <div className="h-2.5 w-full bg-slate-900 border border-white/5 rounded-full overflow-hidden">
+                    <div className="h-2.5 w-full bg-muted border border-border/40 rounded-full overflow-hidden">
                       <div className="h-full bg-primary rounded-full" style={{ width: '20%' }} />
                     </div>
                   </div>
@@ -217,9 +217,9 @@ export function DriverDashboard() {
                   <div className="space-y-1">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>Average Mileage</span>
-                      <span className="text-white">12.4 km/L</span>
+                      <span className="text-foreground">12.4 km/L</span>
                     </div>
-                    <div className="h-2.5 w-full bg-slate-900 border border-white/5 rounded-full overflow-hidden">
+                    <div className="h-2.5 w-full bg-muted border border-border/40 rounded-full overflow-hidden">
                       <div className="h-full bg-[#eab308] rounded-full" style={{ width: '92%' }} />
                     </div>
                   </div>
@@ -228,7 +228,7 @@ export function DriverDashboard() {
                       <span>Eco-Score Grade</span>
                       <span className="text-success">Grade A (Eco-Driver)</span>
                     </div>
-                    <div className="h-2.5 w-full bg-slate-900 border border-white/5 rounded-full overflow-hidden">
+                    <div className="h-2.5 w-full bg-muted border border-border/40 rounded-full overflow-hidden">
                       <div className="h-full bg-success rounded-full" style={{ width: '96%' }} />
                     </div>
                   </div>
@@ -248,23 +248,26 @@ export function DriverDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="aspect-video w-full rounded-xl border border-white/5 bg-slate-950/40 relative overflow-hidden flex items-center justify-center">
-                <span className="text-slate-500 font-bold text-xs">MH-12-GQ-4431</span>
+              <div className="aspect-video w-full rounded-xl border border-dashed border-border bg-gradient-to-br from-primary/5 via-transparent to-primary/5 relative overflow-hidden flex flex-col items-center justify-center p-4">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-50" />
+                <TruckIcon className="size-12 text-primary/40 mb-2 relative z-10" />
+                <span className="text-foreground font-mono font-bold text-xs tracking-wider relative z-10 bg-background/60 px-2 py-0.5 rounded border border-border/40">MH-12-GQ-4431</span>
+                <span className="text-[10px] text-muted-foreground mt-1 relative z-10">Tata Prima 4930.S &middot; Nominal</span>
               </div>
               <div className="grid grid-cols-2 gap-2.5 text-xs pt-1">
                 <div>
-                  <span className="text-slate-400 block text-[10px] font-bold tracking-wider uppercase font-sans">Model</span>
-                  <span className="font-semibold text-white">Tata Prima 4930.S</span>
+                  <span className="text-muted-foreground block text-[10px] font-bold tracking-wider uppercase font-sans">Model</span>
+                  <span className="font-semibold text-foreground">Tata Prima 4930.S</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[10px] font-bold tracking-wider uppercase font-sans">Odometer</span>
-                  <span className="font-semibold text-white">1,24,550 km</span>
+                  <span className="text-muted-foreground block text-[10px] font-bold tracking-wider uppercase font-sans">Odometer</span>
+                  <span className="font-semibold text-foreground">1,24,550 km</span>
                 </div>
               </div>
               <Button 
                 variant="outline" 
                 onClick={() => navigate('/driver-vehicle')}
-                className="w-full h-9 rounded-xl text-xs font-semibold border-white/10 hover:bg-white/5 text-slate-300 mt-2"
+                className="w-full h-9 rounded-xl text-xs font-semibold border-border hover:bg-muted text-foreground mt-2"
               >
                 Inspect Vehicle Details
               </Button>
@@ -283,8 +286,8 @@ export function DriverDashboard() {
                 {upcomingTrips.map((trip) => (
                   <div key={trip.id} className="p-3.5 hover:bg-muted/10 transition-colors flex items-center justify-between text-xs">
                     <div>
-                      <div className="font-bold text-white">{trip.route}</div>
-                      <div className="text-[10px] text-slate-400 mt-0.5">{trip.date} &middot; {trip.id}</div>
+                      <div className="font-bold text-foreground">{trip.route}</div>
+                      <div className="text-[10px] text-muted-foreground mt-0.5">{trip.date} &middot; {trip.id}</div>
                     </div>
                     <StatusBadge tone="neutral">{trip.status}</StatusBadge>
                   </div>

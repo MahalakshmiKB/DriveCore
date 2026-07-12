@@ -24,6 +24,11 @@ import {
   User as UserIcon,
   History as HistoryIcon,
   Route as RouteIcon,
+  ShieldCheckIcon,
+  ShieldAlertIcon,
+  CalendarClockIcon,
+  WalletIcon,
+  TrendingUpIcon,
 } from 'lucide-react'
 
 import { cn } from '@/utils'
@@ -43,11 +48,34 @@ const DRIVER_NAV_ITEMS = [
   { path: '/driver-profile', label: 'Profile', icon: UserIcon },
 ]
 
+const SAFETY_NAV_ITEMS = [
+  { path: '/safety-dashboard', label: 'Dashboard', icon: LayoutGridIcon },
+  { path: '/safety-drivers', label: 'Driver Safety', icon: ShieldCheckIcon },
+  { path: '/safety-licenses', label: 'License Monitoring', icon: CalendarClockIcon },
+  { path: '/safety-incidents', label: 'Incidents', icon: ShieldAlertIcon },
+  { path: '/safety-reports', label: 'Compliance Reports', icon: FileTextIcon },
+  { path: '/safety-profile', label: 'Profile', icon: UserIcon },
+]
+
+const FINANCE_NAV_ITEMS = [
+  { path: '/finance-dashboard', label: 'Dashboard', icon: LayoutGridIcon },
+  { path: '/finance-expenses', label: 'Expenses', icon: WalletIcon },
+  { path: '/finance-fuel', label: 'Fuel', icon: FuelIcon },
+  { path: '/finance-reports', label: 'Financial Reports', icon: BarChart3Icon },
+  { path: '/finance-analytics', label: 'Analytics', icon: TrendingUpIcon },
+  { path: '/finance-profile', label: 'Profile', icon: UserIcon },
+]
+
 export function DashboardLayout() {
   const { user, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
-  const navItems = user?.role === 'Driver' ? DRIVER_NAV_ITEMS : NAV_ITEMS
+
+  const navItems =
+    user?.role === 'Driver' ? DRIVER_NAV_ITEMS :
+    user?.role === 'Safety Officer' ? SAFETY_NAV_ITEMS :
+    user?.role === 'Financial Analyst' ? FINANCE_NAV_ITEMS :
+    NAV_ITEMS
   const [mobileOpen, setMobileOpen] = useState(false)
   const [notificationsOpen, setNotificationsOpen] = useState(false)
 

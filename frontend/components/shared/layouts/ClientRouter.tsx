@@ -19,11 +19,29 @@ import { AiDispatchPage } from '@/features/trips/pages/AiDispatchPage'
 import { SettingsPage } from '@/features/settings/pages/SettingsPage'
 import { useAuth } from '@/hooks/useAuth'
 import { AccessDeniedPage } from '@/components/shared/layouts/AccessDeniedPage'
+
+// Driver pages
 import { DriverDashboard } from '@/features/drivers/pages/DriverDashboard'
 import { DriverMyTrips } from '@/features/drivers/pages/DriverMyTrips'
 import { DriverVehicle } from '@/features/drivers/pages/DriverVehicle'
 import { DriverHistory } from '@/features/drivers/pages/DriverHistory'
 import { DriverProfile } from '@/features/drivers/pages/DriverProfile'
+
+// Safety Officer pages
+import { SafetyDashboard } from '@/features/safety/pages/SafetyDashboard'
+import { SafetyDriversPage } from '@/features/safety/pages/SafetyDriversPage'
+import { SafetyLicensePage } from '@/features/safety/pages/SafetyLicensePage'
+import { SafetyIncidentsPage } from '@/features/safety/pages/SafetyIncidentsPage'
+import { SafetyReportsPage } from '@/features/safety/pages/SafetyReportsPage'
+import { SafetyProfilePage } from '@/features/safety/pages/SafetyProfilePage'
+
+// Financial Analyst pages
+import { FinanceDashboard } from '@/features/finance/pages/FinanceDashboard'
+import { FinanceExpensesPage } from '@/features/finance/pages/FinanceExpensesPage'
+import { FinanceFuelPage } from '@/features/finance/pages/FinanceFuelPage'
+import { FinanceReportsPage } from '@/features/finance/pages/FinanceReportsPage'
+import { FinanceAnalyticsPage } from '@/features/finance/pages/FinanceAnalyticsPage'
+import { FinanceProfilePage } from '@/features/finance/pages/FinanceProfilePage'
 
 export function ClientRouter() {
   const [mounted, setMounted] = useState(false)
@@ -48,7 +66,7 @@ export function ClientRouter() {
       <HashRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          
+
           <Route
             path="/"
             element={
@@ -58,6 +76,8 @@ export function ClientRouter() {
             }
           >
             <Route index element={<IndexRedirect />} />
+
+            {/* Fleet Manager routes */}
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="vehicles" element={<VehiclesPage />} />
             <Route path="drivers" element={<DriversPage />} />
@@ -69,17 +89,31 @@ export function ClientRouter() {
             <Route path="ai-dispatch" element={<AiDispatchPage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="design-system" element={<DesignSystemPage />} />
-            
-            {/* Placeholder dashboards for non-admin roles */}
+
+            {/* Driver routes */}
             <Route path="driver-dashboard" element={<DriverDashboard />} />
             <Route path="driver-my-trips" element={<DriverMyTrips />} />
             <Route path="driver-vehicle" element={<DriverVehicle />} />
             <Route path="driver-history" element={<DriverHistory />} />
             <Route path="driver-profile" element={<DriverProfile />} />
-            <Route path="safety-dashboard" element={<PlaceholderDashboard title="Safety Dashboard" />} />
-            <Route path="finance-dashboard" element={<PlaceholderDashboard title="Finance Dashboard" />} />
-            
-            {/* Access Denied Route */}
+
+            {/* Safety Officer routes */}
+            <Route path="safety-dashboard" element={<SafetyDashboard />} />
+            <Route path="safety-drivers" element={<SafetyDriversPage />} />
+            <Route path="safety-licenses" element={<SafetyLicensePage />} />
+            <Route path="safety-incidents" element={<SafetyIncidentsPage />} />
+            <Route path="safety-reports" element={<SafetyReportsPage />} />
+            <Route path="safety-profile" element={<SafetyProfilePage />} />
+
+            {/* Financial Analyst routes */}
+            <Route path="finance-dashboard" element={<FinanceDashboard />} />
+            <Route path="finance-expenses" element={<FinanceExpensesPage />} />
+            <Route path="finance-fuel" element={<FinanceFuelPage />} />
+            <Route path="finance-reports" element={<FinanceReportsPage />} />
+            <Route path="finance-analytics" element={<FinanceAnalyticsPage />} />
+            <Route path="finance-profile" element={<FinanceProfilePage />} />
+
+            {/* Access Denied */}
             <Route path="access-denied" element={<AccessDeniedPage />} />
           </Route>
 
@@ -91,28 +125,11 @@ export function ClientRouter() {
   )
 }
 
-function PlaceholderDashboard({ title }: { title: string }) {
-  return (
-    <div className="flex flex-col gap-6 items-center justify-center min-h-[50vh] text-center p-8 bg-card border border-border/45 rounded-[20px] shadow-premium-sm">
-      <div className="flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-        <svg className="size-8 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        </svg>
-      </div>
-      <div className="space-y-2">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">{title}</h1>
-        <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
-          This module is under development.
-        </p>
-      </div>
-    </div>
-  )
-}
-
 function IndexRedirect() {
   const { user } = useAuth()
-  if (user?.role === 'Driver') {
-    return <Navigate to="/driver-dashboard" replace />
-  }
+  if (user?.role === 'Driver') return <Navigate to="/driver-dashboard" replace />
+  if (user?.role === 'Safety Officer') return <Navigate to="/safety-dashboard" replace />
+  if (user?.role === 'Financial Analyst') return <Navigate to="/finance-dashboard" replace />
   return <Navigate to="/dashboard" replace />
 }
+

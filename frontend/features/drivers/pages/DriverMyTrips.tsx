@@ -111,15 +111,15 @@ export function DriverMyTrips() {
                 onClick={() => setSelectedTripId(trip.id)}
                 className={`border transition-all duration-200 cursor-pointer rounded-[20px] shadow-premium-sm hover:translate-y-[-2px] ${
                   isSelected 
-                    ? 'border-primary/45 bg-slate-900/40 shadow-premium-md' 
+                    ? 'border-primary/45 bg-muted/50 dark:bg-slate-900/40 shadow-premium-md' 
                     : 'border-border/30 bg-card hover:bg-muted/10'
                 }`}
               >
                 <CardContent className="p-5 flex flex-col gap-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-extrabold text-slate-200 tracking-wide bg-white/5 border border-white/5 px-2 py-0.5 rounded">{trip.id}</span>
-                      <span className="text-[10px] text-slate-400 font-semibold">{trip.cargo}</span>
+                      <span className="text-xs font-extrabold text-foreground tracking-wide bg-muted border border-border/40 px-2 py-0.5 rounded">{trip.id}</span>
+                      <span className="text-[10px] text-muted-foreground font-semibold">{trip.cargo}</span>
                     </div>
                     <StatusBadge tone={trip.status === 'Completed' ? 'success' : 'info'}>{trip.status}</StatusBadge>
                   </div>
@@ -128,22 +128,22 @@ export function DriverMyTrips() {
                     <div className="flex items-start gap-2">
                       <MapPinIcon className="size-3.5 text-primary shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-[9px] text-slate-400 block font-bold uppercase font-sans">From</span>
-                        <span className="font-semibold text-white">{trip.source}</span>
+                        <span className="text-[9px] text-muted-foreground block font-bold uppercase font-sans">From</span>
+                        <span className="font-semibold text-foreground">{trip.source}</span>
                       </div>
                     </div>
                     <div className="flex items-start gap-2">
                       <MapPinIcon className="size-3.5 text-success shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-[9px] text-slate-400 block font-bold uppercase font-sans">To</span>
-                        <span className="font-semibold text-white">{trip.destination}</span>
+                        <span className="text-[9px] text-muted-foreground block font-bold uppercase font-sans">To</span>
+                        <span className="font-semibold text-foreground">{trip.destination}</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 border-t border-border/20 pt-3 mt-1 font-sans">
-                    <span>ETA: <span className="text-white font-semibold">{trip.eta}</span></span>
-                    <span>Vehicle: <span className="text-white font-semibold">{trip.vehicle}</span></span>
+                  <div className="flex items-center justify-between text-[11px] text-muted-foreground border-t border-border/20 pt-3 mt-1 font-sans">
+                    <span>ETA: <span className="text-foreground font-semibold">{trip.eta}</span></span>
+                    <span>Vehicle: <span className="text-foreground font-semibold">{trip.vehicle}</span></span>
                   </div>
                 </CardContent>
               </Card>
@@ -161,7 +161,7 @@ export function DriverMyTrips() {
                     <RouteIcon className="size-4.5 text-primary" />
                     Trip Details
                   </CardTitle>
-                  <span className="text-xs font-bold text-slate-300 bg-white/5 px-2 py-0.5 rounded border border-white/5">{selectedTrip.id}</span>
+                  <span className="text-xs font-bold text-foreground bg-muted px-2 py-0.5 rounded border border-border/40">{selectedTrip.id}</span>
                 </div>
                 <CardDescription className="text-xs">Milestone tracking and operational controls.</CardDescription>
               </CardHeader>
@@ -169,31 +169,31 @@ export function DriverMyTrips() {
               <CardContent className="pt-5 space-y-6">
                 
                 {/* Statistics detail grid */}
-                <div className="grid grid-cols-2 gap-4 text-xs bg-muted/20 border border-border/20 p-4 rounded-xl">
+                <div className="grid grid-cols-2 gap-4 text-xs bg-muted/40 dark:bg-muted/10 border border-border/20 p-4 rounded-xl">
                   <div>
-                    <span className="text-slate-400 block text-[9px] font-bold uppercase font-sans">Cargo Load</span>
-                    <span className="font-bold text-white flex items-center gap-1 mt-0.5">
+                    <span className="text-muted-foreground block text-[9px] font-bold uppercase font-sans">Cargo Load</span>
+                    <span className="font-bold text-foreground flex items-center gap-1 mt-0.5">
                       <PackageIcon className="size-3.5 text-primary" />
                       {selectedTrip.cargo}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[9px] font-bold uppercase font-sans">Gross Weight</span>
-                    <span className="font-bold text-white flex items-center gap-1 mt-0.5">
+                    <span className="text-muted-foreground block text-[9px] font-bold uppercase font-sans">Gross Weight</span>
+                    <span className="font-bold text-foreground flex items-center gap-1 mt-0.5">
                       <WeightIcon className="size-3.5 text-primary" />
                       {selectedTrip.weight}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[9px] font-bold uppercase font-sans">Dispatch Time</span>
-                    <span className="font-bold text-white flex items-center gap-1 mt-0.5">
+                    <span className="text-muted-foreground block text-[9px] font-bold uppercase font-sans">Dispatch Time</span>
+                    <span className="font-bold text-foreground flex items-center gap-1 mt-0.5">
                       <ClockIcon className="size-3.5 text-primary" />
                       {selectedTrip.dispatchTime}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[9px] font-bold uppercase font-sans">Eta Goal</span>
-                    <span className="font-bold text-white flex items-center gap-1 mt-0.5">
+                    <span className="text-muted-foreground block text-[9px] font-bold uppercase font-sans">Eta Goal</span>
+                    <span className="font-bold text-foreground flex items-center gap-1 mt-0.5">
                       <ClockIcon className="size-3.5 text-primary" />
                       {selectedTrip.eta}
                     </span>
@@ -215,9 +215,9 @@ export function DriverMyTrips() {
                               ? 'bg-primary border-primary shadow-[0_0_8px_#3b82f6] animate-pulse'
                               : isCompleted
                                 ? 'bg-success border-success'
-                                : 'bg-slate-950 border-border'
+                                : 'bg-background border-border'
                           }`} />
-                          <span className={`${isActive ? 'text-primary font-bold' : isCompleted ? 'text-slate-200 font-semibold' : 'text-slate-500'}`}>
+                          <span className={`${isActive ? 'text-primary font-bold' : isCompleted ? 'text-foreground font-semibold' : 'text-muted-foreground'}`}>
                             {step}
                           </span>
                         </div>
@@ -248,7 +248,7 @@ export function DriverMyTrips() {
                         variant="outline" 
                         disabled={selectedTrip.status === 'Paused'}
                         onClick={() => updateStatus(selectedTrip.id, 'Paused')}
-                        className="flex-1 h-9 rounded-xl text-xs font-semibold border-white/10 hover:bg-white/5 text-slate-300"
+                        className="flex-1 h-9 rounded-xl text-xs font-semibold border-border hover:bg-muted text-foreground"
                       >
                         <PauseIcon className="size-3.5 mr-1" />
                         Pause Trip
@@ -257,7 +257,7 @@ export function DriverMyTrips() {
                         variant="outline" 
                         disabled={selectedTrip.status !== 'Paused'}
                         onClick={() => updateStatus(selectedTrip.id, 'In Transit')}
-                        className="flex-1 h-9 rounded-xl text-xs font-semibold border-white/10 hover:bg-white/5 text-slate-300"
+                        className="flex-1 h-9 rounded-xl text-xs font-semibold border-border hover:bg-muted text-foreground"
                       >
                         <PlayIcon className="size-3.5 mr-1" />
                         Resume Trip

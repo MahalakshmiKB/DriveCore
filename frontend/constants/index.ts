@@ -12,7 +12,7 @@ import {
   FuelIcon,
   DollarSignIcon,
   SettingsIcon,
-  Coins as CoinsIcon
+  Wallet as CoinsIcon
 } from 'lucide-react'
 import { StatusTone } from '@/components/design-system/status-badge'
 

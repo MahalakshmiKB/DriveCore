@@ -12,21 +12,34 @@ import {
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination'
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/ui/empty'
-import { InboxIcon } from 'lucide-react'
+import { cn } from '@/utils'
 
 export interface DataTableColumn<T> {
+  /** Column header label */
   header: string
+  /** Key of the row object to display as plain text. Mutually exclusive with cell. */
   accessorKey?: keyof T
+  /**
+   * Tailwind classes for BOTH <th> and <td>.
+   * Use w-[N%] here to set proportional column widths for table-fixed layout.
+   * Use text-right, font-mono, etc. for cell-specific styling.
+   */
   className?: string
+  /** Override classes for the <th> only */
   headerClassName?: string
+  /** Custom cell renderer. When provided, the raw value tooltip is unavailable. */
   cell?: (row: T) => React.ReactNode
+  /**
+   * Whether to truncate overflowing text with an ellipsis.
+   * Defaults to true. Set to false for badge/custom cells that should not be clipped.
+   */
+  truncate?: boolean
 }
 
 interface DataTableProps<T> {
@@ -37,6 +50,10 @@ interface DataTableProps<T> {
   emptyDescription?: string
   pageSize?: number
 }
+
+// Header height ~40px + cell padding giving ~56px row height via py-3.5
+const CELL_CLS = 'align-middle px-4 py-3.5 text-[11px] leading-snug'
+const HEAD_CLS = 'align-middle px-4 py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70'
 
 export function DataTable<T>({
   columns,
@@ -55,7 +72,6 @@ export function DataTable<T>({
   }, [data, currentPage, pageSize])
 
   useEffect(() => {
-    // Reset to page 1 if data changes and current page exceeds new bounds
     if (currentPage > totalPages && totalPages > 0) {
       setCurrentPage(totalPages)
     }
@@ -63,7 +79,7 @@ export function DataTable<T>({
 
   if (data.length === 0) {
     return (
-      <Empty className="border border-border bg-card">
+      <Empty className="border border-border bg-card rounded-[20px]">
         <EmptyHeader>
           <EmptyTitle>{emptyTitle}</EmptyTitle>
           <EmptyDescription>{emptyDescription}</EmptyDescription>
@@ -73,32 +89,79 @@ export function DataTable<T>({
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="overflow-hidden rounded-[20px] border border-border/45 bg-card shadow-premium-sm">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-muted/15 hover:bg-muted/15">
-              {columns.map((col, index) => (
-                <TableHead key={index} className={col.headerClassName || col.className}>
-                  {col.header}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {paginatedData.map((row) => (
-              <TableRow key={keyExtractor(row)}>
-                {columns.map((col, colIdx) => (
-                  <TableCell key={colIdx} className={col.className}>
-                    {col.cell ? col.cell(row) : col.accessorKey ? String(row[col.accessorKey] ?? '') : null}
-                  </TableCell>
+    <div className="flex flex-col gap-3 w-full min-w-0">
+      {/*
+        The outer div clips the table so it never causes horizontal scrollbar.
+        overflow-y-auto on the inner scroll container + sticky thead give the sticky header.
+      */}
+      <div className="w-full min-w-0 rounded-[20px] border border-border/40 bg-card shadow-[0_2px_16px_0_rgba(0,0,0,0.18)] overflow-hidden">
+        {/* Scrollable body with sticky header */}
+        <div className="overflow-x-hidden overflow-y-auto max-h-[480px]">
+          <Table className="w-full table-fixed border-collapse">
+            {/* ── Sticky header ── */}
+            <TableHeader className="sticky top-0 z-10">
+              <TableRow className="border-b border-border/30 bg-[hsl(var(--muted)/0.18)] hover:bg-[hsl(var(--muted)/0.18)]">
+                {columns.map((col, i) => (
+                  <TableHead
+                    key={i}
+                    className={cn(
+                      HEAD_CLS,
+                      col.headerClassName ?? col.className ?? ''
+                    )}
+                  >
+                    <span className="block truncate">{col.header}</span>
+                  </TableHead>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+
+            {/* ── Body rows ── */}
+            <TableBody>
+              {paginatedData.map((row, rowIdx) => (
+                <TableRow
+                  key={keyExtractor(row)}
+                  className={cn(
+                    'border-b border-border/15 transition-colors duration-100',
+                    rowIdx % 2 === 0
+                      ? 'bg-card hover:bg-[hsl(var(--muted)/0.12)]'
+                      : 'bg-[hsl(var(--muted)/0.06)] hover:bg-[hsl(var(--muted)/0.14)]'
+                  )}
+                >
+                  {columns.map((col, colIdx) => {
+                    const shouldTruncate = col.truncate !== false && !col.cell
+                    const rawValue =
+                      col.accessorKey ? String(row[col.accessorKey] ?? '') : undefined
+
+                    return (
+                      <TableCell
+                        key={colIdx}
+                        title={shouldTruncate ? rawValue : undefined}
+                        className={cn(
+                          CELL_CLS,
+                          shouldTruncate ? 'overflow-hidden max-w-0' : '',
+                          col.className ?? ''
+                        )}
+                      >
+                        {shouldTruncate ? (
+                          <span className="block truncate">
+                            {rawValue}
+                          </span>
+                        ) : col.cell ? (
+                          col.cell(row)
+                        ) : (
+                          rawValue
+                        )}
+                      </TableCell>
+                    )
+                  })}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
+      {/* ── Pagination ── */}
       {totalPages > 1 && (
         <Pagination className="justify-between">
           <PaginationContent>

@@ -10,12 +10,13 @@ import {
   AwardIcon,
   ClockIcon,
   ChevronRightIcon,
-  CheckCircle2Icon
+  CheckCircle2Icon,
+  Leaf
 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
-import { DataTable } from '@/components/shared/data/DataTable'
+import { DataTable, DataTableColumn } from '@/components/shared/data/DataTable'
 import { StatusBadge } from '@/components/design-system/status-badge'
 import { KpiCard } from '@/components/design-system/kpi-card'
 
@@ -58,51 +59,73 @@ export function DriverHistory() {
   const totalHours = '15.5 Hrs'
   const avgEcoRating = '98%'
 
-  const columns = [
+  const columns: DataTableColumn<CompletedTrip>[] = [
     {
       header: 'Trip ID',
       accessorKey: 'id',
-      className: 'font-bold text-white text-xs w-24',
+      className: 'w-[10%] font-mono text-xs font-bold text-foreground',
     },
     {
       header: 'Route Details',
       cell: (row: CompletedTrip) => (
-        <div className="flex flex-col">
-          <span className="font-semibold text-slate-200">{row.route}</span>
-          <span className="text-[10px] text-slate-400 mt-0.5">{row.date}</span>
+        <div className="flex items-center gap-2 max-w-full min-w-0">
+          <MapPinIcon className="size-3.5 text-primary shrink-0" />
+          <div className="flex flex-col min-w-0">
+            <span className="font-semibold text-foreground truncate">{row.route}</span>
+            <span className="text-[10px] text-muted-foreground mt-0.5">{row.date}</span>
+          </div>
         </div>
       ),
-      className: 'text-left',
+      className: 'w-[42%] text-left',
     },
     {
       header: 'Distance',
-      accessorKey: 'distance',
-      className: 'tabular-nums text-slate-300 font-medium',
+      cell: (row: CompletedTrip) => {
+        const [value, suffix] = row.distance.split(' ')
+        return (
+          <span className="tabular-nums text-foreground font-bold text-sm">
+            {value}<span className="text-[10px] text-muted-foreground font-normal ml-0.5">{suffix}</span>
+          </span>
+        )
+      },
+      className: 'w-[12%] text-left',
     },
     {
       header: 'Duration',
-      accessorKey: 'duration',
-      className: 'tabular-nums text-slate-300 font-medium',
+      cell: (row: CompletedTrip) => (
+        <div className="inline-flex items-center justify-center gap-1.5 tabular-nums text-foreground mx-auto">
+          <ClockIcon className="size-3.5 text-muted-foreground shrink-0" />
+          <span>{row.duration}</span>
+        </div>
+      ),
+      className: 'w-[12%] text-center',
     },
     {
       header: 'Fuel Saved',
-      accessorKey: 'fuelSaved',
-      className: 'text-success font-semibold tabular-nums',
+      cell: (row: CompletedTrip) => (
+        <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-success/15 dark:bg-success/20 text-success border border-success/10">
+          <Leaf className="size-3 shrink-0" />
+          <span>{row.fuelSaved}</span>
+        </div>
+      ),
+      truncate: false,
+      className: 'w-[12%] text-left',
     },
     {
       header: 'Actions',
       cell: (row: CompletedTrip) => (
         <Button
           variant="outline"
-          size="xs"
+          size="sm"
           onClick={() => handleDownload(row.id)}
-          className="ml-auto flex items-center gap-1 border-white/5 bg-white/5 hover:bg-white/10 text-slate-300"
+          className="h-8 px-3 rounded-lg text-xs font-semibold border-border hover:bg-muted text-foreground flex items-center gap-1.5 ml-auto"
         >
-          <DownloadIcon className="size-3.5" />
+          <DownloadIcon className="size-3.5 shrink-0" />
           Download Log
         </Button>
       ),
-      className: 'text-right w-36',
+      truncate: false,
+      className: 'w-[12%] text-right',
     }
   ]
 
@@ -129,11 +152,11 @@ export function DriverHistory() {
         {/* Left: Table & filters */}
         <div className="lg:col-span-8 space-y-4">
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="flex-1">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-muted/20 dark:bg-card/45 p-3 rounded-2xl border border-border/40">
+            <div className="flex-1 max-w-md min-w-0">
               <InputGroup>
                 <InputGroupAddon>
-                  <SearchIcon className="size-4 text-slate-400" />
+                  <SearchIcon className="size-4 text-muted-foreground" />
                 </InputGroupAddon>
                 <InputGroupInput
                   placeholder="Search history by trip ID or route..."
@@ -143,16 +166,16 @@ export function DriverHistory() {
               </InputGroup>
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-400 font-semibold">Filter:</span>
-              <div className="flex gap-1 bg-slate-950/40 border border-white/5 p-1 rounded-xl">
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-xs text-muted-foreground font-semibold">Status:</span>
+              <div className="flex gap-1 bg-muted/60 dark:bg-slate-950/40 border border-border/30 p-1 rounded-xl">
                 {['All', 'Completed', 'Cancelled'].map((f) => (
                   <button
                     key={f}
                     onClick={() => setStatusFilter(f)}
-                    className={`text-[10px] font-bold px-2.5 py-1.5 rounded-lg transition-all ${statusFilter === f
+                    className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all ${statusFilter === f
                       ? 'bg-primary text-white shadow-premium-sm'
-                      : 'text-slate-400 hover:text-slate-300'
+                      : 'text-muted-foreground hover:text-foreground'
                       }`}
                   >
                     {f}
@@ -191,7 +214,7 @@ export function DriverHistory() {
                     <span>Speed Limit Compliance</span>
                     <span className="text-success">98%</span>
                   </div>
-                  <div className="h-2 w-full bg-slate-950 border border-white/5 rounded-full overflow-hidden">
+                  <div className="h-2 w-full bg-muted border border-border/40 rounded-full overflow-hidden">
                     <div className="h-full bg-success rounded-full" style={{ width: '98%' }} />
                   </div>
                 </div>
@@ -201,7 +224,7 @@ export function DriverHistory() {
                     <span>Smooth Braking Index</span>
                     <span className="text-success">95%</span>
                   </div>
-                  <div className="h-2 w-full bg-slate-950 border border-white/5 rounded-full overflow-hidden">
+                  <div className="h-2 w-full bg-muted border border-border/40 rounded-full overflow-hidden">
                     <div className="h-full bg-success rounded-full" style={{ width: '95%' }} />
                   </div>
                 </div>
@@ -211,13 +234,13 @@ export function DriverHistory() {
                     <span>Engine Idle Duration Score</span>
                     <span className="text-primary">88%</span>
                   </div>
-                  <div className="h-2 w-full bg-slate-950 border border-white/5 rounded-full overflow-hidden">
+                  <div className="h-2 w-full bg-muted border border-border/40 rounded-full overflow-hidden">
                     <div className="h-full bg-primary rounded-full" style={{ width: '88%' }} />
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4 p-3 rounded-xl border border-white/5 bg-slate-950/40 text-[10px] text-slate-400 leading-normal flex items-start gap-2 font-medium">
+              <div className="mt-4 p-3 rounded-xl border border-border/40 bg-muted/40 dark:bg-slate-950/40 text-[10px] text-muted-foreground leading-normal flex items-start gap-2 font-medium">
                 <AwardIcon className="size-4 text-primary shrink-0 mt-0.5" />
                 <span>Maintain safety ratings above 90% to remain eligible for seasonal dispatcher bonuses.</span>
               </div>
