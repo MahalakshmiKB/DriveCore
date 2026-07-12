@@ -50,10 +50,10 @@ export const NAV_ITEMS = [
   { path: '/vehicles', label: 'Vehicles', icon: TruckIcon },
   { path: '/drivers', label: 'Drivers', icon: UsersIcon },
   { path: '/trips', label: 'Trips', icon: RouteIcon },
-  { path: '/maintenance', label: 'Maintenance', icon: WrenchIcon, isDrawer: true },
-  { path: '/fuel', label: 'Fuel logs', icon: FuelIcon, isDrawer: true },
-  { path: '/expenses', label: 'Expenses', icon: DollarSignIcon, isDrawer: true },
-  { path: '/reports', label: 'Reports', icon: BarChart3Icon, isDrawer: true },
+  { path: '/maintenance', label: 'Maintenance', icon: WrenchIcon },
+  { path: '/fuel', label: 'Fuel logs', icon: FuelIcon },
+  { path: '/expenses', label: 'Expenses', icon: DollarSignIcon },
+  { path: '/reports', label: 'Reports', icon: BarChart3Icon },
   { path: '/design-system', label: 'Design System', icon: LayersIcon },
 ]
 

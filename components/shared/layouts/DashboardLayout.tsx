@@ -36,22 +36,12 @@ export function DashboardLayout() {
   const location = useLocation()
   const navigate = useNavigate()
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [activeDrawer, setActiveDrawer] = React.useState<'maintenance' | 'fuel' | 'expenses' | 'reports' | 'settings' | null>(null)
+  const [activeDrawer, setActiveDrawer] = React.useState<'settings' | null>(null)
   const [notificationsOpen, setNotificationsOpen] = React.useState(false)
 
   const handleLogout = async () => {
     await logout()
     navigate('/login')
-  }
-
-  const handleNavItemClick = (item: typeof NAV_ITEMS[number]) => {
-    setMobileOpen(false)
-    if (item.isDrawer) {
-      setActiveDrawer(item.path.slice(1) as any)
-    } else {
-      setActiveDrawer(null)
-      navigate(item.path)
-    }
   }
 
   return (
@@ -93,15 +83,14 @@ export function DashboardLayout() {
           </p>
           <ul className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => {
-              const { path, label, icon: Icon, isDrawer } = item
-              const isActive = isDrawer 
-                ? activeDrawer === path.slice(1)
-                : location.pathname === path || (path !== '/' && location.pathname.startsWith(path) && !activeDrawer)
+              const { path, label, icon: Icon } = item
+              const isActive = location.pathname === path || (path !== '/' && location.pathname.startsWith(path))
 
               return (
                 <li key={path}>
-                  <button
-                    onClick={() => handleNavItemClick(item)}
+                  <Link
+                    to={path}
+                    onClick={() => setMobileOpen(false)}
                     className={cn(
                       'flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer active:scale-[0.98]',
                       isActive
@@ -111,10 +100,7 @@ export function DashboardLayout() {
                   >
                     <Icon className="size-4 shrink-0" />
                     {label}
-                    {isDrawer && (
-                      <span className="ml-auto size-1.5 rounded-full bg-primary-foreground/30" />
-                    )}
-                  </button>
+                  </Link>
                 </li>
               )
             })}
@@ -260,8 +246,8 @@ export function DashboardLayout() {
         </main>
       </div>
 
-      {/* Slide-out drawers for extra screens (Maintenance, Fuel logs, Expenses, Reports, Settings) */}
-      {activeDrawer && (
+      {/* Slide-out drawer for Settings */}
+      {activeDrawer === 'settings' && (
         <>
           {/* Overlay background */}
           <div 
@@ -274,12 +260,8 @@ export function DashboardLayout() {
             {/* Header */}
             <div className="flex items-center justify-between border-b border-border/20 pb-4 mb-5">
               <h3 className="text-sm font-bold text-foreground capitalize flex items-center gap-2 tracking-tight">
-                {activeDrawer === 'maintenance' && <WrenchIcon className="size-4 text-primary" />}
-                {activeDrawer === 'fuel' && <FuelIcon className="size-4 text-primary" />}
-                {activeDrawer === 'expenses' && <DollarSignIcon className="size-4 text-primary" />}
-                {activeDrawer === 'reports' && <BarChart3Icon className="size-4 text-primary" />}
-                {activeDrawer === 'settings' && <SettingsIcon className="size-4 text-primary" />}
-                {activeDrawer} Dashboard
+                <SettingsIcon className="size-4 text-primary" />
+                Settings Dashboard
               </h3>
               <Button variant="ghost" size="icon-sm" className="rounded-lg" onClick={() => setActiveDrawer(null)}>
                 <XIcon className="size-4" />
@@ -288,180 +270,35 @@ export function DashboardLayout() {
 
             {/* Content Body */}
             <div className="flex-1 overflow-y-auto pr-1 space-y-5 scrollbar-thin">
-              
-              {/* MAINTENANCE DRAWER */}
-              {activeDrawer === 'maintenance' && (
+              <div className="space-y-4">
+                <p className="text-xs text-muted-foreground">
+                  Customize operations center settings, integration keys, and display preferences.
+                </p>
                 <div className="space-y-4">
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    View active service tickets and schedule preventive inspections for vehicle assets.
-                  </p>
-                  <div className="space-y-2.5">
-                    <div className="p-3 border border-border/40 rounded-xl bg-muted/20 hover:bg-muted/40 transition-colors">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-foreground">TX-8921</span>
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-warning px-1.5 py-0.5 bg-warning-muted/25 rounded-md border border-warning/10">In Shop</span>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-1.5">Engine Diagnostics & Tuning</p>
-                      <div className="flex items-center justify-between text-[11px] text-muted-foreground/80 mt-2">
-                        <span>Est: $450.00</span>
-                        <span>Opened: Today</span>
-                      </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-bold text-foreground">Alert Hub Notifications</div>
+                      <div className="text-[10px] text-muted-foreground">Receive real-time push dispatches</div>
                     </div>
-                    <div className="p-3 border border-border/40 rounded-xl bg-muted/20 hover:bg-muted/40 transition-colors">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-foreground">CA-4431</span>
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-success px-1.5 py-0.5 bg-success-muted/25 rounded-md border border-success/10">Scheduled</span>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-1.5">Brake Pads Replacement</p>
-                      <div className="flex items-center justify-between text-[11px] text-muted-foreground/80 mt-2">
-                        <span>Est: $210.00</span>
-                        <span>Scheduled: Oct 15</span>
-                      </div>
-                    </div>
+                    <input type="checkbox" defaultChecked className="rounded border-border text-primary focus:ring-primary size-4" />
                   </div>
-                  <Button className="w-full mt-4" size="sm" onClick={() => toast.success("Maintenance scheduler opened")}>
-                    Create Work Order
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-bold text-foreground">API Integrations</div>
+                      <div className="text-[10px] text-muted-foreground">Enable Webhooks & Fleet GPS SDK</div>
+                    </div>
+                    <input type="checkbox" className="rounded border-border text-primary focus:ring-primary size-4" />
+                  </div>
+                </div>
+                <div className="border-t border-border/30 pt-4 mt-6">
+                  <Button className="w-full" size="sm" onClick={() => {
+                    toast.success("Settings saved successfully")
+                    setActiveDrawer(null)
+                  }}>
+                    Save Configurations
                   </Button>
                 </div>
-              )}
-
-              {/* FUEL DRAWER */}
-              {activeDrawer === 'fuel' && (
-                <div className="space-y-4">
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    Logs of energy refills and average efficiency metrics across the active fleet.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 border border-border/30 rounded-xl bg-muted/20">
-                      <div>
-                        <div className="text-xs font-bold text-foreground">FL-5542</div>
-                        <div className="text-[10px] text-muted-foreground mt-0.5">Shell Station #41</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-xs font-semibold text-foreground">52.0 Gal</div>
-                        <div className="text-[10px] text-success font-semibold mt-0.5">11.8 mpg</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between p-3 border border-border/30 rounded-xl bg-muted/20">
-                      <div>
-                        <div className="text-xs font-bold text-foreground">TX-8921</div>
-                        <div className="text-[10px] text-muted-foreground mt-0.5">BP Fuel Stop #12</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-xs font-semibold text-foreground">45.2 Gal</div>
-                        <div className="text-[10px] text-success font-semibold mt-0.5">12.4 mpg</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 mt-4">
-                    <div className="p-3 border border-border/40 rounded-xl bg-muted/20 text-center">
-                      <div className="text-[10px] uppercase font-bold text-muted-foreground/80">Avg MPG</div>
-                      <div className="text-lg font-bold text-foreground mt-1">12.1</div>
-                    </div>
-                    <div className="p-3 border border-border/40 rounded-xl bg-muted/20 text-center">
-                      <div className="text-[10px] uppercase font-bold text-muted-foreground/80">Avg Gal Price</div>
-                      <div className="text-lg font-bold text-foreground mt-1">$3.15</div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* EXPENSES DRAWER */}
-              {activeDrawer === 'expenses' && (
-                <div className="space-y-4">
-                  <p className="text-xs text-muted-foreground">
-                    Current month expenses breakdown across operations.
-                  </p>
-                  <div className="divide-y divide-border/20">
-                    <div className="flex justify-between py-2.5">
-                      <span className="text-xs text-muted-foreground">Fuel Refills</span>
-                      <span className="text-xs font-bold text-foreground">$92,400.00</span>
-                    </div>
-                    <div className="flex justify-between py-2.5">
-                      <span className="text-xs text-muted-foreground">Preventive Maintenance</span>
-                      <span className="text-xs font-bold text-foreground">$24,800.00</span>
-                    </div>
-                    <div className="flex justify-between py-2.5">
-                      <span className="text-xs text-muted-foreground">Driver Salaries</span>
-                      <span className="text-xs font-bold text-foreground">$120,500.00</span>
-                    </div>
-                    <div className="flex justify-between py-2.5">
-                      <span className="text-xs text-muted-foreground">Fleet Insurance</span>
-                      <span className="text-xs font-bold text-foreground">$18,000.00</span>
-                    </div>
-                  </div>
-                  <div className="border-t border-border/30 pt-3 flex justify-between items-center mt-4">
-                    <span className="text-xs font-bold text-foreground">Total Budget Spent</span>
-                    <span className="text-sm font-extrabold text-primary">$255,700.00</span>
-                  </div>
-                </div>
-              )}
-
-              {/* REPORTS DRAWER */}
-              {activeDrawer === 'reports' && (
-                <div className="space-y-4">
-                  <p className="text-xs text-muted-foreground">
-                    Operational analytics reports ready for dispatch and audit.
-                  </p>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between p-3 border border-border/40 rounded-xl bg-muted/20 hover:bg-muted/40 transition-all cursor-pointer">
-                      <div className="flex items-center gap-2">
-                        <FileTextIcon className="size-4 text-primary" />
-                        <span className="text-xs font-semibold">Q2 Fuel Efficiency Audit</span>
-                      </div>
-                      <Button variant="ghost" size="icon-xs" onClick={() => toast.success("File downloading started")}>
-                        <DownloadIcon className="size-3.5" />
-                      </Button>
-                    </div>
-                    <div className="flex items-center justify-between p-3 border border-border/40 rounded-xl bg-muted/20 hover:bg-muted/40 transition-all cursor-pointer">
-                      <div className="flex items-center gap-2">
-                        <FileTextIcon className="size-4 text-primary" />
-                        <span className="text-xs font-semibold">June Dispatch Records</span>
-                      </div>
-                      <Button variant="ghost" size="icon-xs" onClick={() => toast.success("File downloading started")}>
-                        <DownloadIcon className="size-3.5" />
-                      </Button>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4" size="sm" onClick={() => toast.success("Report builder launched")}>
-                    Build Custom Report
-                  </Button>
-                </div>
-              )}
-
-              {/* SETTINGS DRAWER */}
-              {activeDrawer === 'settings' && (
-                <div className="space-y-4">
-                  <p className="text-xs text-muted-foreground">
-                    Customize operations center settings, integration keys, and display preferences.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-xs font-bold text-foreground">Alert Hub Notifications</div>
-                        <div className="text-[10px] text-muted-foreground">Receive real-time push dispatches</div>
-                      </div>
-                      <input type="checkbox" defaultChecked className="rounded border-border text-primary focus:ring-primary size-4" />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-xs font-bold text-foreground">API Integrations</div>
-                        <div className="text-[10px] text-muted-foreground">Enable Webhooks & Fleet GPS SDK</div>
-                      </div>
-                      <input type="checkbox" className="rounded border-border text-primary focus:ring-primary size-4" />
-                    </div>
-                  </div>
-                  <div className="border-t border-border/30 pt-4 mt-6">
-                    <Button className="w-full" size="sm" onClick={() => {
-                      toast.success("Settings saved successfully")
-                      setActiveDrawer(null)
-                    }}>
-                      Save Configurations
-                    </Button>
-                  </div>
-                </div>
-              )}
-
+              </div>
             </div>
           </div>
         </>
