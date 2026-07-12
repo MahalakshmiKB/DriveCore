@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import { WrenchIcon, SearchIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -18,15 +18,15 @@ import { ErrorBoundary } from '@/components/shared/feedback/ErrorBoundary'
 import { formatOdometer } from '@/utils'
 
 export function VehiclesPage() {
-  const [vehicles, setVehicles] = React.useState<Vehicle[]>([])
-  const [loading, setLoading] = React.useState(true)
-  const [search, setSearch] = React.useState('')
-  const [selectedVehicle, setSelectedVehicle] = React.useState<Vehicle | null>(null)
-  const [desc, setDesc] = React.useState('')
-  const [cost, setCost] = React.useState('')
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+  const [vehicles, setVehicles] = useState<Vehicle[]>([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null)
+  const [desc, setDesc] = useState('')
+  const [cost, setCost] = useState('')
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-  const fetchVehicles = React.useCallback(async () => {
+  const fetchVehicles = useCallback(async () => {
     try {
       const list = await vehicleService.getVehicles()
       setVehicles(list)
@@ -37,7 +37,7 @@ export function VehiclesPage() {
     }
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchVehicles()
   }, [fetchVehicles])
 
@@ -62,7 +62,7 @@ export function VehiclesPage() {
     }
   }
 
-  const filteredVehicles = React.useMemo(() => {
+  const filteredVehicles = useMemo(() => {
     return vehicles.filter(
       (v) =>
         v.plate.toLowerCase().includes(search.toLowerCase()) ||
@@ -182,7 +182,7 @@ export function VehiclesPage() {
                 onChange={(e) => setDesc(e.target.value)}
               />
               <FormInput
-                label="Estimated cost ($)"
+                label="Estimated cost (₹)"
                 id="maint-cost"
                 type="number"
                 placeholder="0.00"

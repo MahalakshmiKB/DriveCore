@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { BarChart3Icon, SearchIcon, PlusIcon, FileTextIcon, DownloadIcon, CheckCircle2Icon, SlidersIcon, ShieldAlertIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -32,17 +32,17 @@ const mockReports: ReportRecord[] = [
 ]
 
 export function ReportsPage() {
-  const [reports, setReports] = React.useState<ReportRecord[]>([])
-  const [loading, setLoading] = React.useState(true)
-  const [search, setSearch] = React.useState('')
-  const [formatFilter, setFormatFilter] = React.useState<string>('All')
+  const [reports, setReports] = useState<ReportRecord[]>([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
+  const [formatFilter, setFormatFilter] = useState<string>('All')
 
   // Form builder state
-  const [reportType, setReportType] = React.useState('Fuel')
-  const [timeframe, setTimeframe] = React.useState('This Month')
-  const [exportFormat, setExportFormat] = React.useState('PDF')
+  const [reportType, setReportType] = useState('Fuel')
+  const [timeframe, setTimeframe] = useState('This Month')
+  const [exportFormat, setExportFormat] = useState('PDF')
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       setReports(mockReports)
       setLoading(false)
@@ -59,7 +59,7 @@ export function ReportsPage() {
     toast.success(`Started downloading file: ${title}`)
   }
 
-  const filteredReports = React.useMemo(() => {
+  const filteredReports = useMemo(() => {
     return reports.filter((r) => {
       const matchesSearch = r.title.toLowerCase().includes(search.toLowerCase()) ||
                             r.createdBy.toLowerCase().includes(search.toLowerCase())

@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { WrenchIcon, SearchIcon, PlusIcon, CalendarIcon, CheckCircle2Icon, Settings2Icon } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -32,12 +32,12 @@ const mockMaintenanceData: MaintenanceRecord[] = [
 ]
 
 export function MaintenancePage() {
-  const [records, setRecords] = React.useState<MaintenanceRecord[]>([])
-  const [loading, setLoading] = React.useState(true)
-  const [search, setSearch] = React.useState('')
-  const [statusFilter, setStatusFilter] = React.useState<string>('All')
+  const [records, setRecords] = useState<MaintenanceRecord[]>([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState<string>('All')
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       setRecords(mockMaintenanceData)
       setLoading(false)
@@ -49,7 +49,7 @@ export function MaintenancePage() {
     toast.success('Maintenance work order created successfully.')
   }
 
-  const filteredRecords = React.useMemo(() => {
+  const filteredRecords = useMemo(() => {
     return records.filter((r) => {
       const matchesSearch = r.plate.toLowerCase().includes(search.toLowerCase()) ||
                             r.model.toLowerCase().includes(search.toLowerCase()) ||
@@ -86,7 +86,7 @@ export function MaintenancePage() {
     },
     {
       header: 'Cost',
-      cell: (row) => `$${row.cost.toFixed(2)}`,
+      cell: (row) => `₹${row.cost.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`,
       className: 'tabular-nums text-foreground font-medium',
     },
     {
@@ -130,7 +130,7 @@ export function MaintenancePage() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <KpiCard label="Active In Shop" value={String(activeCount)} icon={WrenchIcon} delta="+1" trend="up" hint="vs last week" />
             <KpiCard label="Scheduled Services" value={String(scheduledCount)} icon={CalendarIcon} delta="+2" trend="up" hint="this week" />
-            <KpiCard label="Inspection Costs (MTD)" value={`$${totalCostMTD}`} icon={PlusIcon} delta="+12.4%" trend="up" hint="vs budget" />
+            <KpiCard label="Inspection Costs (MTD)" value={`₹${totalCostMTD.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`} icon={PlusIcon} delta="+12.4%" trend="up" hint="vs budget" />
             <KpiCard label="Avg Turnaround" value="1.8 Days" icon={Settings2Icon} delta="-0.3" trend="down" hint="resolution time" />
           </div>
 

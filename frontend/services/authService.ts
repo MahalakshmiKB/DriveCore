@@ -12,13 +12,26 @@ const MOCK_USER: User = {
 
 export const authService = {
   async login(username: string, password: string): Promise<User> {
-    if (username === 'admin' && password === 'password') {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(MOCK_USER))
+    let user: User | null = null
+    if (password === 'password') {
+      if (username === 'admin' || username === 'manager@drivecore.com') {
+        user = { id: '1', username: 'admin', name: 'Ava Monroe', role: 'Fleet Manager', avatarFallback: 'AM' }
+      } else if (username === 'driver' || username === 'driver@drivecore.com') {
+        user = { id: '2', username: 'driver', name: 'Marcus Vance', role: 'Driver', avatarFallback: 'MV' }
+      } else if (username === 'safety' || username === 'safety@drivecore.com') {
+        user = { id: '3', username: 'safety', name: 'Sarah Jenkins', role: 'Safety Officer', avatarFallback: 'SJ' }
+      } else if (username === 'finance' || username === 'finance@drivecore.com') {
+        user = { id: '4', username: 'finance', name: 'Elena Rostova', role: 'Financial Analyst', avatarFallback: 'ER' }
       }
-      return mockRequest(MOCK_USER)
     }
-    throw new Error('Invalid username or password. (Hint: admin / password)')
+
+    if (user) {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(user))
+      }
+      return mockRequest(user)
+    }
+    throw new Error('Invalid username or password. (Hint: password is "password")')
   },
 
   async logout(): Promise<void> {

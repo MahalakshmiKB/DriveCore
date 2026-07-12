@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState } from 'react'
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom'
 import {
   MenuIcon,
@@ -35,9 +35,8 @@ export function DashboardLayout() {
   const { user, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
-  const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [activeDrawer, setActiveDrawer] = React.useState<'settings' | null>(null)
-  const [notificationsOpen, setNotificationsOpen] = React.useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [notificationsOpen, setNotificationsOpen] = useState(false)
 
   const handleLogout = async () => {
     await logout()
@@ -125,7 +124,7 @@ export function DashboardLayout() {
               <Button
                 variant="ghost"
                 size="icon-xs"
-                onClick={() => setActiveDrawer('settings')}
+                onClick={() => navigate('/settings')}
                 className="hover:bg-muted/70 text-muted-foreground hover:text-foreground"
                 title="Settings"
               >
@@ -245,64 +244,6 @@ export function DashboardLayout() {
           <Outlet />
         </main>
       </div>
-
-      {/* Slide-out drawer for Settings */}
-      {activeDrawer === 'settings' && (
-        <>
-          {/* Overlay background */}
-          <div 
-            className="fixed inset-0 bg-background/55 backdrop-blur-xs z-50 transition-opacity duration-300"
-            onClick={() => setActiveDrawer(null)}
-          />
-          {/* Drawer Wrapper */}
-          <div className="fixed inset-y-4 right-4 z-50 w-full max-w-md bg-card/90 backdrop-blur-xl border border-border/40 shadow-2xl rounded-2xl flex flex-col p-6 animate-in slide-in-from-right duration-300 dark:bg-card">
-            
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-border/20 pb-4 mb-5">
-              <h3 className="text-sm font-bold text-foreground capitalize flex items-center gap-2 tracking-tight">
-                <SettingsIcon className="size-4 text-primary" />
-                Settings Dashboard
-              </h3>
-              <Button variant="ghost" size="icon-sm" className="rounded-lg" onClick={() => setActiveDrawer(null)}>
-                <XIcon className="size-4" />
-              </Button>
-            </div>
-
-            {/* Content Body */}
-            <div className="flex-1 overflow-y-auto pr-1 space-y-5 scrollbar-thin">
-              <div className="space-y-4">
-                <p className="text-xs text-muted-foreground">
-                  Customize operations center settings, integration keys, and display preferences.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-xs font-bold text-foreground">Alert Hub Notifications</div>
-                      <div className="text-[10px] text-muted-foreground">Receive real-time push dispatches</div>
-                    </div>
-                    <input type="checkbox" defaultChecked className="rounded border-border text-primary focus:ring-primary size-4" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-xs font-bold text-foreground">API Integrations</div>
-                      <div className="text-[10px] text-muted-foreground">Enable Webhooks & Fleet GPS SDK</div>
-                    </div>
-                    <input type="checkbox" className="rounded border-border text-primary focus:ring-primary size-4" />
-                  </div>
-                </div>
-                <div className="border-t border-border/30 pt-4 mt-6">
-                  <Button className="w-full" size="sm" onClick={() => {
-                    toast.success("Settings saved successfully")
-                    setActiveDrawer(null)
-                  }}>
-                    Save Configurations
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
     </div>
   )
 }

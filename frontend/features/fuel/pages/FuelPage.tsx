@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { FuelIcon, SearchIcon, PlusIcon, CompassIcon, InfoIcon, AwardIcon, TrendingUpIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -34,12 +34,12 @@ const mockFuelLogs: FuelRecord[] = [
 ]
 
 export function FuelPage() {
-  const [logs, setLogs] = React.useState<FuelRecord[]>([])
-  const [loading, setLoading] = React.useState(true)
-  const [search, setSearch] = React.useState('')
-  const [regionFilter, setRegionFilter] = React.useState<string>('All')
+  const [logs, setLogs] = useState<FuelRecord[]>([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
+  const [regionFilter, setRegionFilter] = useState<string>('All')
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       setLogs(mockFuelLogs)
       setLoading(false)
@@ -51,7 +51,7 @@ export function FuelPage() {
     toast.success('Fuel transaction logged successfully.')
   }
 
-  const filteredLogs = React.useMemo(() => {
+  const filteredLogs = useMemo(() => {
     return logs.filter((l) => {
       const matchesSearch = l.plate.toLowerCase().includes(search.toLowerCase()) ||
                             l.driver.toLowerCase().includes(search.toLowerCase()) ||
@@ -90,7 +90,7 @@ export function FuelPage() {
     },
     {
       header: 'Total Cost',
-      cell: (row) => `$${row.cost.toFixed(2)}`,
+      cell: (row) => `₹${row.cost.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`,
       className: 'tabular-nums text-foreground font-semibold',
     },
     {
@@ -135,10 +135,10 @@ export function FuelPage() {
           
           {/* KPI Cards */}
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <KpiCard label="Fuel Costs MTD" value={`$${totalCost.toFixed(2)}`} icon={FuelIcon} delta="+6.7%" trend="up" hint="vs monthly budget" />
+            <KpiCard label="Fuel Costs MTD" value={`₹${totalCost.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`} icon={FuelIcon} delta="+6.7%" trend="up" hint="vs monthly budget" />
             <KpiCard label="Avg efficiency" value={`${avgMpg} MPG`} icon={AwardIcon} delta="+1.2%" trend="up" hint="across active fleet" />
             <KpiCard label="Total Gallons" value={`${totalGallons.toFixed(1)} Gal`} icon={TrendingUpIcon} delta="+3.4%" trend="up" hint="monthly usage" />
-            <KpiCard label="Avg Price/Gal" value={`$${avgCostPerGallon}`} icon={CompassIcon} delta="-0.04" trend="down" hint="market comparison" />
+            <KpiCard label="Avg Price/Gal" value={`₹${avgCostPerGallon}`} icon={CompassIcon} delta="-0.04" trend="down" hint="market comparison" />
           </div>
 
           <div className="grid gap-6 lg:grid-cols-3">

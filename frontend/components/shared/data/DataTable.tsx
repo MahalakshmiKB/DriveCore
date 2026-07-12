@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import {
   Table,
   TableBody,
@@ -46,15 +46,15 @@ export function DataTable<T>({
   emptyDescription = 'There are no records to display.',
   pageSize = 5,
 }: DataTableProps<T>) {
-  const [currentPage, setCurrentPage] = React.useState(1)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const totalPages = Math.ceil(data.length / pageSize)
-  const paginatedData = React.useMemo(() => {
+  const paginatedData = useMemo(() => {
     const start = (currentPage - 1) * pageSize
     return data.slice(start, start + pageSize)
   }, [data, currentPage, pageSize])
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Reset to page 1 if data changes and current page exceeds new bounds
     if (currentPage > totalPages && totalPages > 0) {
       setCurrentPage(totalPages)

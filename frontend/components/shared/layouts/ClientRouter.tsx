@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { ProtectedRoute } from '@/components/shared/layouts/ProtectedRoute'
@@ -15,11 +15,13 @@ import { FuelPage } from '@/features/fuel/pages/FuelPage'
 import { ExpensesPage } from '@/features/expenses/pages/ExpensesPage'
 import { ReportsPage } from '@/features/reports/pages/ReportsPage'
 import { DesignSystemPage } from '@/features/design-system/pages/DesignSystemPage'
+import { AiDispatchPage } from '@/features/trips/pages/AiDispatchPage'
+import { SettingsPage } from '@/features/settings/pages/SettingsPage'
 
 export function ClientRouter() {
-  const [mounted, setMounted] = React.useState(false)
+  const [mounted, setMounted] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true)
   }, [])
 
@@ -57,7 +59,14 @@ export function ClientRouter() {
             <Route path="fuel" element={<FuelPage />} />
             <Route path="expenses" element={<ExpensesPage />} />
             <Route path="reports" element={<ReportsPage />} />
+            <Route path="ai-dispatch" element={<AiDispatchPage />} />
+            <Route path="settings" element={<SettingsPage />} />
             <Route path="design-system" element={<DesignSystemPage />} />
+            
+            {/* Placeholder dashboards for non-admin roles */}
+            <Route path="driver-dashboard" element={<PlaceholderDashboard title="Driver Dashboard" />} />
+            <Route path="safety-dashboard" element={<PlaceholderDashboard title="Safety Dashboard" />} />
+            <Route path="finance-dashboard" element={<PlaceholderDashboard title="Finance Dashboard" />} />
           </Route>
 
           {/* Catch-all fallback */}
@@ -65,5 +74,23 @@ export function ClientRouter() {
         </Routes>
       </HashRouter>
     </AuthProvider>
+  )
+}
+
+function PlaceholderDashboard({ title }: { title: string }) {
+  return (
+    <div className="flex flex-col gap-6 items-center justify-center min-h-[50vh] text-center p-8 bg-card border border-border/45 rounded-[20px] shadow-premium-sm">
+      <div className="flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+        <svg className="size-8 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      </div>
+      <div className="space-y-2">
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">{title}</h1>
+        <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
+          This module is under development.
+        </p>
+      </div>
+    </div>
   )
 }

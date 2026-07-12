@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import { PlusIcon, SearchIcon, RouteIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -19,20 +19,20 @@ import { LoadingBoundary } from '@/components/shared/feedback/LoadingBoundary'
 import { ErrorBoundary } from '@/components/shared/feedback/ErrorBoundary'
 
 export function TripsPage() {
-  const [trips, setTrips] = React.useState<Trip[]>([])
-  const [vehicles, setVehicles] = React.useState<Vehicle[]>([])
-  const [drivers, setDrivers] = React.useState<Driver[]>([])
-  const [loading, setLoading] = React.useState(true)
+  const [trips, setTrips] = useState<Trip[]>([])
+  const [vehicles, setVehicles] = useState<Vehicle[]>([])
+  const [drivers, setDrivers] = useState<Driver[]>([])
+  const [loading, setLoading] = useState(true)
 
   // Form State
-  const [selectedPlate, setSelectedPlate] = React.useState('')
-  const [selectedDriverId, setSelectedDriverId] = React.useState('')
-  const [region, setRegion] = React.useState('West')
-  const [notes, setNotes] = React.useState('')
-  const [submitting, setSubmitting] = React.useState(false)
-  const [search, setSearch] = React.useState('')
+  const [selectedPlate, setSelectedPlate] = useState('')
+  const [selectedDriverId, setSelectedDriverId] = useState('')
+  const [region, setRegion] = useState('West')
+  const [notes, setNotes] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [search, setSearch] = useState('')
 
-  const loadData = React.useCallback(async () => {
+  const loadData = useCallback(async () => {
     try {
       const [tList, vList, dList] = await Promise.all([
         tripService.getTrips(),
@@ -49,20 +49,20 @@ export function TripsPage() {
     }
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     loadData()
   }, [loadData])
 
   // Get available vehicles and drivers
-  const availableVehicles = React.useMemo(() => {
+  const availableVehicles = useMemo(() => {
     return vehicles.filter((v) => v.status === 'Available')
   }, [vehicles])
 
-  const availableDrivers = React.useMemo(() => {
+  const availableDrivers = useMemo(() => {
     return drivers.filter((d) => d.status === 'Available')
   }, [drivers])
 
-  const handleCreateTrip = React.useCallback(async (e: React.FormEvent) => {
+  const handleCreateTrip = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!selectedPlate) {
@@ -109,7 +109,7 @@ export function TripsPage() {
     }
   }, [selectedPlate, selectedDriverId, region, notes, vehicles, drivers, loadData])
 
-  const filteredTrips = React.useMemo(() => {
+  const filteredTrips = useMemo(() => {
     return trips.filter(
       (t) =>
         t.plate.toLowerCase().includes(search.toLowerCase()) ||

@@ -11,7 +11,8 @@ import {
   WrenchIcon,
   FuelIcon,
   DollarSignIcon,
-  SettingsIcon
+  SettingsIcon,
+  Coins as CoinsIcon
 } from 'lucide-react'
 import { StatusTone } from '@/components/design-system/status-badge'
 
@@ -50,10 +51,12 @@ export const NAV_ITEMS = [
   { path: '/vehicles', label: 'Vehicles', icon: TruckIcon },
   { path: '/drivers', label: 'Drivers', icon: UsersIcon },
   { path: '/trips', label: 'Trips', icon: RouteIcon },
+  { path: '/ai-dispatch', label: 'AI Dispatch', icon: RouteIcon },
   { path: '/maintenance', label: 'Maintenance', icon: WrenchIcon },
   { path: '/fuel', label: 'Fuel logs', icon: FuelIcon },
-  { path: '/expenses', label: 'Expenses', icon: DollarSignIcon },
+  { path: '/expenses', label: 'Expenses', icon: CoinsIcon },
   { path: '/reports', label: 'Reports', icon: BarChart3Icon },
+  { path: '/settings', label: 'Settings', icon: SettingsIcon },
   { path: '/design-system', label: 'Design System', icon: LayersIcon },
 ]
 

@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { DollarSignIcon, SearchIcon, PlusIcon, FileCheck2Icon, LandmarkIcon, BarChartIcon, InfoIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -33,12 +33,12 @@ const mockExpenses: ExpenseRecord[] = [
 ]
 
 export function ExpensesPage() {
-  const [expenses, setExpenses] = React.useState<ExpenseRecord[]>([])
-  const [loading, setLoading] = React.useState(true)
-  const [search, setSearch] = React.useState('')
-  const [categoryFilter, setCategoryFilter] = React.useState<string>('All')
+  const [expenses, setExpenses] = useState<ExpenseRecord[]>([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState<string>('All')
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       setExpenses(mockExpenses)
       setLoading(false)
@@ -50,7 +50,7 @@ export function ExpensesPage() {
     toast.success('Expense transaction logged for approval.')
   }
 
-  const filteredExpenses = React.useMemo(() => {
+  const filteredExpenses = useMemo(() => {
     return expenses.filter((e) => {
       const matchesSearch = e.description.toLowerCase().includes(search.toLowerCase()) ||
                             e.asset.toLowerCase().includes(search.toLowerCase()) ||
@@ -92,7 +92,7 @@ export function ExpensesPage() {
     },
     {
       header: 'Amount',
-      cell: (row) => `$${row.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}`,
+      cell: (row) => `₹${row.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`,
       className: 'tabular-nums text-foreground font-bold',
     },
     {
@@ -129,9 +129,9 @@ export function ExpensesPage() {
           
           {/* KPI Cards */}
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <KpiCard label="Total Spent MTD" value={`$${totalSpent.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} icon={DollarSignIcon} delta="+8.4%" trend="up" hint="vs last month" />
+            <KpiCard label="Total Spent MTD" value={`₹${totalSpent.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`} icon={LandmarkIcon} delta="+8.4%" trend="up" hint="vs last month" />
             <KpiCard label="Budget Utilization" value={`${budgetUtilization}%`} icon={LandmarkIcon} delta="+2.1%" trend="up" hint="82% of monthly cap" />
-            <KpiCard label="Avg Cost Per Mile" value="$0.45 / Mile" icon={BarChartIcon} delta="-1.5%" trend="down" hint="across whole fleet" />
+            <KpiCard label="Avg Cost Per Mile" value="₹0.45 / Mile" icon={BarChartIcon} delta="-1.5%" trend="down" hint="across whole fleet" />
             <KpiCard label="Pending Approvals" value={String(pendingCount)} icon={FileCheck2Icon} delta="+2" trend="up" hint="awaiting review" />
           </div>
 
@@ -187,13 +187,13 @@ export function ExpensesPage() {
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>Total Operations Budget</span>
-                      <span>$312,000.00</span>
+                      <span>₹3,12,000.00</span>
                     </div>
                     <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
                       <div className="h-full bg-primary rounded-full" style={{ width: '82%' }} />
                     </div>
                     <div className="text-[10px] text-muted-foreground mt-1">
-                      $56,300.00 remaining of overall monthly cap limits.
+                      ₹56,300.00 remaining of overall monthly cap limits.
                     </div>
                   </div>
                 </CardContent>
