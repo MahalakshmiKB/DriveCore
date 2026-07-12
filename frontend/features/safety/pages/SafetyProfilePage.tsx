@@ -135,9 +135,9 @@ export function SafetyProfilePage() {
             <CardContent className="pt-5">
               <form onSubmit={handlePasswordChange} className="space-y-4">
                 <div className="grid gap-4 sm:grid-cols-3">
-                  <FormInput label="Current Password" type="password" value={oldPassword} onChange={setOldPassword} placeholder="••••••••" />
-                  <FormInput label="New Password" type="password" value={newPassword} onChange={setNewPassword} placeholder="••••••••" />
-                  <FormInput label="Confirm New Password" type="password" value={confirmPassword} onChange={setConfirmPassword} placeholder="••••••••" />
+                  <FormInput label="Current Password" type="password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} placeholder="••••••••" />
+                  <FormInput label="New Password" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="••••••••" />
+                  <FormInput label="Confirm New Password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="••••••••" />
                 </div>
                 <div className="flex justify-end pt-1">
                   <Button type="submit" className="h-9 px-6 rounded-xl text-xs font-semibold bg-primary hover:bg-primary/95 text-white active:scale-[0.98]">

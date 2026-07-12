@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useMemo } from 'react'
-import { WalletIcon, DownloadIcon, FileCheck2Icon, LandmarkIcon, BarChartIcon, InfoIcon } from 'lucide-react'
+import { WalletIcon, DownloadIcon, FileCheck2Icon, LandmarkIcon, BarChartIcon, InfoIcon, PlusIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { KpiCard } from '@/components/design-system/kpi-card'

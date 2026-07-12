@@ -184,21 +184,21 @@ export function DriverProfile() {
                     label="Current Password"
                     type="password"
                     value={oldPassword}
-                    onChange={setOldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
                     placeholder="••••••••"
                   />
                   <FormInput
                     label="New Password"
                     type="password"
                     value={newPassword}
-                    onChange={setNewPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="••••••••"
                   />
                   <FormInput
                     label="Confirm New Password"
                     type="password"
                     value={confirmPassword}
-                    onChange={setConfirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
                   />
                 </div>

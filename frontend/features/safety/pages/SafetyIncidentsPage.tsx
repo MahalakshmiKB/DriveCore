@@ -138,7 +138,7 @@ export function SafetyIncidentsPage() {
           {/* KPI row — always horizontal, responsive grid */}
           <div className="grid grid-cols-3 gap-3 min-w-0">
             <KpiCard label="Open Incidents" value={String(open)} icon={AlertTriangleIcon} delta="Urgent" trend="down" hint="require action" />
-            <KpiCard label="Under Review" value={String(underReview)} icon={ClockIcon} delta="In Progress" trend="neutral" hint="being investigated" />
+            <KpiCard label="Under Review" value={String(underReview)} icon={ClockIcon} delta="In Progress" trend="flat" hint="being investigated" />
             <KpiCard label="Resolved" value={String(resolved)} icon={CheckCircle2Icon} delta="This month" trend="up" hint="closed incidents" />
           </div>
 

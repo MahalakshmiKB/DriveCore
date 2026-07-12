@@ -87,7 +87,7 @@ export function SafetyDashboard() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <KpiCard label="Drivers Compliant" value="142" icon={ShieldCheckIcon} delta="+2.1%" trend="up" hint="vs last month" />
             <KpiCard label="Expired Licenses" value="6" icon={FileWarningIcon} delta="-3" trend="up" hint="need urgent renewal" />
-            <KpiCard label="Upcoming Renewals" value="24" icon={CalendarClockIcon} delta="Next 30 days" trend="neutral" hint="action required" />
+            <KpiCard label="Upcoming Renewals" value="24" icon={CalendarClockIcon} delta="Next 30 days" trend="flat" hint="action required" />
             <KpiCard label="Fleet Safety Score" value="96%" icon={TrendingUpIcon} delta="+2.4%" trend="up" hint="vs last quarter" />
             <KpiCard label="Open Incidents" value="3" icon={AlertTriangleIcon} delta="-2" trend="up" hint="vs last month" />
             <KpiCard label="Compliance Rate" value="94.7%" icon={BadgeCheckIcon} delta="+1.1%" trend="up" hint="vs last quarter" />

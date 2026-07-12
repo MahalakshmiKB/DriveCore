@@ -97,7 +97,7 @@ export function SafetyLicensePage() {
         <LoadingBoundary isLoading={loading} variant="card">
           <div className="grid gap-5 sm:grid-cols-3">
             <KpiCard label="Valid Licenses" value={String(valid)} icon={CheckCircle2Icon} delta="No action" trend="up" hint="fully compliant" />
-            <KpiCard label="Expiring Soon" value={String(expiringSoon)} icon={ClockIcon} delta="Renew now" trend="neutral" hint="within 90 days" />
+            <KpiCard label="Expiring Soon" value={String(expiringSoon)} icon={ClockIcon} delta="Renew now" trend="flat" hint="within 90 days" />
             <KpiCard label="Expired" value={String(expired)} icon={AlertCircleIcon} delta="Urgent" trend="down" hint="driver suspended" />
           </div>
 

@@ -90,7 +90,7 @@ export function FinanceExpensesPage() {
           <div className="grid gap-5 sm:grid-cols-3">
             <KpiCard label="Total Spend (MTD)" value={`₹${(totalSpend / 100).toLocaleString('en-IN')}k`} icon={WalletIcon} delta="+4.2%" trend="up" hint="vs last month" />
             <KpiCard label="Approved" value={String(approved)} icon={WalletIcon} delta="Verified" trend="up" hint="transactions" />
-            <KpiCard label="Pending" value={String(pending)} icon={WalletIcon} delta="Await approval" trend="neutral" hint="transactions" />
+            <KpiCard label="Pending" value={String(pending)} icon={WalletIcon} delta="Await approval" trend="flat" hint="transactions" />
           </div>
 
           <Card className="border border-border/45 bg-card rounded-[20px] shadow-premium-sm mt-6">

@@ -14,7 +14,7 @@ import {
 import { Button } from '@/components/ui/button'
 
 interface DialogWrapperProps {
-  trigger: React.ReactNode
+  trigger: React.ReactElement
   title: string
   description?: string
   children: React.ReactNode

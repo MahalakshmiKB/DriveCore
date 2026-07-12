@@ -87,7 +87,7 @@ export function FinanceDashboard() {
             <KpiCard label="Maintenance Cost" value="₹26.1k" icon={WrenchIcon} delta="-3.2%" trend="up" hint="vs last month" />
             <KpiCard label="Revenue (MTD)" value="₹5.8L" icon={TrendingUpIcon} delta="+8.3%" trend="up" hint="vs last month" />
             <KpiCard label="Profit Margin" value="37.9%" icon={BarChart3Icon} delta="+1.5%" trend="up" hint="net margin" />
-            <KpiCard label="Fleet Operating Cost" value="₹3.6L" icon={TruckIcon} delta="+2.8%" trend="neutral" hint="total this month" />
+            <KpiCard label="Fleet Operating Cost" value="₹3.6L" icon={TruckIcon} delta="+2.8%" trend="flat" hint="total this month" />
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2 mt-6">

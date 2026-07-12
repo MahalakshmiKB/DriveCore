@@ -81,7 +81,7 @@ interface FormSelectProps extends BaseFieldProps {
   options: { label: string; value: string }[]
   value?: string
   defaultValue?: string
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: any) => void
   placeholder?: string
   className?: string
 }

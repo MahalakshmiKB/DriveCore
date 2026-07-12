@@ -81,7 +81,7 @@ export function FinanceReportsPage() {
           <div className="grid gap-5 sm:grid-cols-3">
             <KpiCard label="Monthly Reports" value={String(reports.filter(r => r.period === 'Monthly').length)} icon={FileTextIcon} delta="Available" trend="up" hint="this period" />
             <KpiCard label="Quarterly Reports" value={String(reports.filter(r => r.period === 'Quarterly').length)} icon={BarChart3Icon} delta="Generated" trend="up" hint="archived" />
-            <KpiCard label="Yearly Reports" value={String(reports.filter(r => r.period === 'Yearly').length)} icon={BarChart3Icon} delta="Annual" trend="neutral" hint="fiscal year" />
+            <KpiCard label="Yearly Reports" value={String(reports.filter(r => r.period === 'Yearly').length)} icon={BarChart3Icon} delta="Annual" trend="flat" hint="fiscal year" />
           </div>
 
           <div className="flex flex-col gap-0 min-w-0 border border-border/40 rounded-[20px] bg-card shadow-[0_2px_16px_0_rgba(0,0,0,0.18)] overflow-hidden mt-6">

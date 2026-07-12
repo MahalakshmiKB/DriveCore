@@ -95,7 +95,7 @@ export function SafetyDriversPage() {
         <LoadingBoundary isLoading={loading} variant="card">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <KpiCard label="Compliant Drivers" value={String(compliant)} icon={ShieldCheckIcon} delta={`${Math.round(compliant / (records.length || 1) * 100)}%`} trend="up" hint="of fleet" />
-            <KpiCard label="On Warning" value={String(warning)} icon={AlertTriangleIcon} delta="Monitor" trend="neutral" hint="action recommended" />
+            <KpiCard label="On Warning" value={String(warning)} icon={AlertTriangleIcon} delta="Monitor" trend="flat" hint="action recommended" />
             <KpiCard label="Non-Compliant" value={String(nonCompliant)} icon={AlertTriangleIcon} delta="Urgent" trend="down" hint="immediate review" />
             <KpiCard label="Avg Safety Score" value={`${avgScore}%`} icon={AwardIcon} delta="+2.4%" trend="up" hint="vs last quarter" />
           </div>

@@ -87,7 +87,7 @@ export function SafetyReportsPage() {
           <div className="grid gap-5 sm:grid-cols-3">
             <KpiCard label="Monthly Safety" value={String(reports.filter(r => r.type === 'Monthly Safety').length)} icon={ShieldCheckIcon} delta="This quarter" trend="up" hint="reports generated" />
             <KpiCard label="Inspection Reports" value={String(reports.filter(r => r.type === 'Inspection').length)} icon={FileTextIcon} delta="Audited" trend="up" hint="vehicle checks" />
-            <KpiCard label="Violation Reports" value={String(reports.filter(r => r.type === 'Violation').length)} icon={BarChart3Icon} delta="Tracked" trend="neutral" hint="incidents logged" />
+            <KpiCard label="Violation Reports" value={String(reports.filter(r => r.type === 'Violation').length)} icon={BarChart3Icon} delta="Tracked" trend="flat" hint="incidents logged" />
           </div>
 
           <Card className="border border-border/45 bg-card rounded-[20px] shadow-premium-sm mt-6">

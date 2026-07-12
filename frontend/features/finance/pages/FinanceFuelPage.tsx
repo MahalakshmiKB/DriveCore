@@ -102,7 +102,7 @@ export function FinanceFuelPage() {
         <LoadingBoundary isLoading={loading} variant="card">
           <div className="grid gap-5 sm:grid-cols-3">
             <KpiCard label="Total Fuel Cost" value={`₹${(totalCost / 1000).toFixed(1)}k`} icon={FuelIcon} delta="+6.7%" trend="up" hint="this month" />
-            <KpiCard label="Total Litres" value={`${totalLitres}L`} icon={FuelIcon} delta="Consumed" trend="neutral" hint="total refuelling" />
+            <KpiCard label="Total Litres" value={`${totalLitres}L`} icon={FuelIcon} delta="Consumed" trend="flat" hint="total refuelling" />
             <KpiCard label="Avg Fleet Mileage" value={`${avgMileage} km/L`} icon={TrendingUpIcon} delta="+0.3 km/L" trend="up" hint="vs last month" />
           </div>
 
