@@ -74,10 +74,10 @@ export function DataTable<T>({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="overflow-hidden rounded-lg border border-border bg-card">
+      <div className="overflow-hidden rounded-2xl border border-border/40 bg-card shadow-[0_1px_3px_rgba(0,0,0,0.01),0_8px_16px_-4px_rgba(0,0,0,0.02)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.15),0_10px_20px_-8px_rgba(0,0,0,0.3)]">
         <Table>
           <TableHeader>
-            <TableRow className="bg-muted/40 hover:bg-muted/40">
+            <TableRow className="bg-muted/15 hover:bg-muted/15">
               {columns.map((col, index) => (
                 <TableHead key={index} className={col.headerClassName || col.className}>
                   {col.header}

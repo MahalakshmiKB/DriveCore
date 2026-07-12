@@ -157,14 +157,14 @@ export function TripsPage() {
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">Dispatches & Trips</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Dispatches & Trips</h1>
           <p className="text-sm text-muted-foreground">Manage ongoing dispatches, plan routes, and create new trip drafts.</p>
         </div>
 
         <LoadingBoundary isLoading={loading} variant="table">
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-8 lg:grid-cols-3">
             {/* Form Section */}
             <div className="lg:col-span-1">
               <form onSubmit={handleCreateTrip}>

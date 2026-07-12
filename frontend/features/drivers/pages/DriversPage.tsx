@@ -79,9 +79,9 @@ export function DriversPage() {
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">Drivers Directory</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Drivers Directory</h1>
           <p className="text-sm text-muted-foreground">Monitor safety scores, check license certifications, and track driver availability.</p>
         </div>
 

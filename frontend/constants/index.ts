@@ -1,4 +1,18 @@
-import { LayoutGridIcon, TruckIcon, UsersIcon, RouteIcon, LayersIcon, MousePointerClickIcon, TextCursorInputIcon, BellRingIcon, BarChart3Icon } from 'lucide-react'
+import { 
+  LayoutGridIcon, 
+  TruckIcon, 
+  UsersIcon, 
+  RouteIcon, 
+  LayersIcon, 
+  MousePointerClickIcon, 
+  TextCursorInputIcon, 
+  BellRingIcon, 
+  BarChart3Icon,
+  WrenchIcon,
+  FuelIcon,
+  DollarSignIcon,
+  SettingsIcon
+} from 'lucide-react'
 import { StatusTone } from '@/components/design-system/status-badge'
 
 export const APP_NAME = 'DriveCore'
@@ -36,8 +50,13 @@ export const NAV_ITEMS = [
   { path: '/vehicles', label: 'Vehicles', icon: TruckIcon },
   { path: '/drivers', label: 'Drivers', icon: UsersIcon },
   { path: '/trips', label: 'Trips', icon: RouteIcon },
+  { path: '/maintenance', label: 'Maintenance', icon: WrenchIcon },
+  { path: '/fuel', label: 'Fuel logs', icon: FuelIcon },
+  { path: '/expenses', label: 'Expenses', icon: DollarSignIcon },
+  { path: '/reports', label: 'Reports', icon: BarChart3Icon },
   { path: '/design-system', label: 'Design System', icon: LayersIcon },
 ]
+
 
 export const DESIGN_SYSTEM_NAV_ITEMS = [
   { id: 'foundations', label: 'Foundations', icon: LayersIcon },

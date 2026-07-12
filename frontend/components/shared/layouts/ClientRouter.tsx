@@ -10,6 +10,10 @@ import { DashboardPage } from '@/features/dashboard/pages/DashboardPage'
 import { VehiclesPage } from '@/features/vehicles/pages/VehiclesPage'
 import { DriversPage } from '@/features/drivers/pages/DriversPage'
 import { TripsPage } from '@/features/trips/pages/TripsPage'
+import { MaintenancePage } from '@/features/maintenance/pages/MaintenancePage'
+import { FuelPage } from '@/features/fuel/pages/FuelPage'
+import { ExpensesPage } from '@/features/expenses/pages/ExpensesPage'
+import { ReportsPage } from '@/features/reports/pages/ReportsPage'
 import { DesignSystemPage } from '@/features/design-system/pages/DesignSystemPage'
 
 export function ClientRouter() {
@@ -49,6 +53,10 @@ export function ClientRouter() {
             <Route path="vehicles" element={<VehiclesPage />} />
             <Route path="drivers" element={<DriversPage />} />
             <Route path="trips" element={<TripsPage />} />
+            <Route path="maintenance" element={<MaintenancePage />} />
+            <Route path="fuel" element={<FuelPage />} />
+            <Route path="expenses" element={<ExpensesPage />} />
+            <Route path="reports" element={<ReportsPage />} />
             <Route path="design-system" element={<DesignSystemPage />} />
           </Route>
 
